@@ -13,5 +13,10 @@
         public float ThicknessCm { get; set; } = thicknessCm;
 
         public override string ToString() => $"Winter Tire: MinTemperature = {MinTemperatureC} °C, Thickness = {ThicknessCm} cm, Pressure={PressureBar} bar";
+        public override bool Equals(object? obj)
+            => base.Equals(obj)
+            && (obj is WinterTire other)
+            && (MinTemperatureC, ThicknessCm) == (other.MinTemperatureC, other.ThicknessCm);
+        public override int GetHashCode() => HashCode.Combine(MinTemperatureC, ThicknessCm, PressureBar);
     }
 }

@@ -9,5 +9,10 @@
         public float MaxTemperatureC { get; set; } = maxTemperatureC;
 
         public override string ToString() => $"Summer Tire: MaxTemperature = {MaxTemperatureC} °C, Pressure = {PressureBar} bar";
+        public override bool Equals(object? obj)
+            => base.Equals(obj)
+            && (obj is SummerTire other)
+            && MaxTemperatureC == other.MaxTemperatureC;
+        public override int GetHashCode() => HashCode.Combine(MaxTemperatureC, PressureBar);
     }
 }
