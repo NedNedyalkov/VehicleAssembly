@@ -1,4 +1,4 @@
-﻿namespace Vehicle.Models.Manufacturers
+﻿namespace VehicleAssembly.Models.Manufacturers
 {
     internal sealed class Honda : Manufacturer
     {

@@ -1,6 +1,6 @@
-﻿using Vehicle.Models.Manufacturers;
+﻿using VehicleAssembly.Models.Manufacturers;
 
-namespace Vehicle.Models.Vehicles
+namespace VehicleAssembly.Models.Vehicles
 {
     public abstract class Vehicle
     {

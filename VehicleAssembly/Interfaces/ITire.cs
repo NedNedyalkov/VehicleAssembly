@@ -1,4 +1,4 @@
-﻿namespace Vehicle.Interfaces
+﻿namespace VehicleAssembly.Interfaces
 {
     /// <summary>
     /// Represents a type of tire used by a vehicle.

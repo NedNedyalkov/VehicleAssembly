@@ -23,16 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Vehicle\Vehicle.csproj" />
+    <ProjectReference Include="..\..\VehicleAssembly\VehicleAssembly.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
-    <Using Include="Vehicle" />
-    <Using Include="Vehicle.Interfaces" />
-    <Using Include="Vehicle.Models.Manufacturers" />
-    <Using Include="Vehicle.Models.Tires" />
-    <Using Include="Vehicle.Models.Vehicles" />
+    <Using Include="VehicleAssembly" />
+    <Using Include="VehicleAssembly.Interfaces" />
+    <Using Include="VehicleAssembly.Models.Manufacturers" />
+    <Using Include="VehicleAssembly.Models.Tires" />
+    <Using Include="VehicleAssembly.Models.Vehicles" />
   </ItemGroup>
 
 </Project>
