@@ -4,7 +4,7 @@ namespace Vehicle.Models.Manufacturers
 {
     public class MotorcycleManufacturers
     {
-        public static Lazy<IMotorcycleManufacturer> Honda { get; } = new(() => Manufacturers.Honda.Instance.Value);
-        public static Lazy<IMotorcycleManufacturer> Ktm { get; } = new(() => Manufacturers.KTM.Instance.Value);
+        public static Lazy<Manufacturer> Honda { get; } = new(() => Manufacturers.Honda.Instance.Value);
+        public static Lazy<Manufacturer> Ktm { get; } = new(() => Manufacturers.KTM.Instance.Value);
     }
 }

@@ -1,36 +1,55 @@
-﻿namespace Vehicle.Tests
+﻿using VehicleType = Vehicle.Models.Vehicles.Vehicle;
+
+namespace Vehicle.Tests
 {
     [TestClass]
     public sealed class VehicleFactoryTests
     {
         [TestMethod]
-        public void VehicleFactory_CreatingVehicleWithNoManufacturer_DoesNotThrowButReturnsFalse()
+        public void VehicleFactory_CreatingVehicle_IsSuccessfull()
         {
-            var result = VehicleFactory.TryCreateVehicle(manufacturer: null!, out var vehicle);
-            Assert.IsFalse(result);
-            Assert.IsNull(vehicle);
+            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, out var vehicle);
+            Assert.IsTrue(result);
+            Assert.IsInstanceOfType<VehicleType>(vehicle);
         }
 
         [TestMethod]
-        public void VehicleFactory_CreatingCarWithNoManufacturer_DoesNotThrowButReturnsFalse()
+        public void VehicleFactory_CreatingCar_IsSuccessfull()
         {
-            var result = VehicleFactory.TryCreateCar(manufacturer: null!, out var car);
-            Assert.IsFalse(result);
-            Assert.IsNull(car);
+            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, out var car);
+            Assert.IsTrue(result);
+            Assert.IsInstanceOfType<Car>(car);
         }
 
         [TestMethod]
-        public void VehicleFactory_CreatingMotorcycleWithNoManufacturer_DoesNotThrowButReturnsFalse()
+        public void VehicleFactory_CreatingMotorcycle_IsSuccessfull()
         {
-            var result = VehicleFactory.TryCreateMotorcycle(manufacturer: null!, out var motorcycle);
-            Assert.IsFalse(result);
-            Assert.IsNull(motorcycle);
+            var result = VehicleFactory.TryCreateMotorcycle(manufacturer: MotorcycleManufacturersEnum.Ktm, out var motorcycle);
+            Assert.IsTrue(result);
+            Assert.IsInstanceOfType<Motorcycle>(motorcycle);
+        }
+
+
+        [TestMethod]
+        public void VehicleFactory_CreatingVehicleWithTires_IsSuccessfull()
+        {
+            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, tire: SummerTire.Default.Value, out var vehicle);
+            Assert.IsTrue(result);
+            Assert.IsInstanceOfType<VehicleType>(vehicle);
+        }
+
+        [TestMethod]
+        public void VehicleFactory_CreatingCarWithTires_IsSuccessfull()
+        {
+            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, tire: SummerTire.Default.Value, out var car);
+            Assert.IsTrue(result);
+            Assert.IsInstanceOfType<Car>(car);
         }
 
         [TestMethod]
         public void VehicleFactory_CreatingVehicleWithNoTire_DoesNotThrowButReturnsFalse()
         {
-            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturers.Toyota.Value, null!, out var vehicle);
+            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, null!, out var vehicle);
             Assert.IsFalse(result);
             Assert.IsNull(vehicle);
         }
@@ -38,17 +57,9 @@
         [TestMethod]
         public void VehicleFactory_CreatingCarWithNoTire_DoesNotThrowButReturnsFalse()
         {
-            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturers.Toyota.Value, null!, out var car);
+            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, null!, out var car);
             Assert.IsFalse(result);
             Assert.IsNull(car);
-        }
-
-        [TestMethod]
-        public void VehicleFactory_CreatingVehicleWithNoTireAndMotorcycleManufacturer_DoesNotThrowButReturnsFalse()
-        {
-            var result = VehicleFactory.TryCreateVehicle(manufacturer: MotorcycleManufacturers.Ktm.Value, null!, out var motorcycle);
-            Assert.IsFalse(result);
-            Assert.IsNull(motorcycle);
         }
     }
 }

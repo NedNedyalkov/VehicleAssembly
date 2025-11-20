@@ -1,4 +1,5 @@
 ﻿using Vehicle.Interfaces;
+using Vehicle.Models.Manufacturers;
 using Vehicle.Models.Tires;
 
 namespace Vehicle.Models.Vehicles
@@ -7,12 +8,12 @@ namespace Vehicle.Models.Vehicles
     {
         public ITire Tire { get; private set; }
 
-        internal Car(ICarManufacturer manufacturer, ITire tire) : base(manufacturer)
+        internal Car(Manufacturer manufacturer, ITire tire) : base(manufacturer)
         {
             Tire = tire ?? throw new ArgumentNullException(paramName: nameof(tire));
         }
 
-        internal Car(ICarManufacturer manufacturer) : this(manufacturer, SummerTire.Default.Value)
+        internal Car(Manufacturer manufacturer) : this(manufacturer, SummerTire.Default.Value)
         {
         }
 
