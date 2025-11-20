@@ -1,10 +1,11 @@
 ﻿using Vehicle.Interfaces;
+using Vehicle.Models.Manufacturers;
 
 namespace Vehicle.Models.Vehicles
 {
     public sealed class Motorcycle : Vehicle
     {
-        internal Motorcycle(IMotorcycleManufacturer manufacturer) : base(manufacturer)
+        internal Motorcycle(Manufacturer manufacturer) : base(manufacturer)
         {
         }
 

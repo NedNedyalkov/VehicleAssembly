@@ -17,10 +17,10 @@ namespace Vehicle.Tests
         [TestMethod]
         public void Manufacturers_DontHaveNonPrivateConstructors()
         {
-            var assembly = Assembly.GetAssembly(typeof(IManufacturer));
-            Assert.IsNotNull(assembly, "Could not get assembly containing IManufacturer.");
+            var assembly = Assembly.GetAssembly(typeof(Manufacturer));
+            Assert.IsNotNull(assembly, $"Could not get assembly containing {nameof(Manufacturer)}.");
 
-            var manufacturerTypes = assembly.GetTypes().Where(t => typeof(IManufacturer).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+            var manufacturerTypes = assembly.GetTypes().Where(t => typeof(Manufacturer).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
             Assert.IsTrue(manufacturerTypes.Count() >= 1);
 
             foreach (var manufacturerType in manufacturerTypes)
@@ -38,10 +38,10 @@ namespace Vehicle.Tests
         [TestMethod]
         public void Manufacturers_InstancePropertiesAreNotPublic()
         {
-            var assembly = Assembly.GetAssembly(typeof(IManufacturer));
-            Assert.IsNotNull(assembly, "Could not get assembly containing IManufacturer.");
+            var assembly = Assembly.GetAssembly(typeof(Manufacturer));
+            Assert.IsNotNull(assembly, $"Could not get assembly containing {nameof(Manufacturer)}.");
 
-            var manufacturerTypes = assembly.GetTypes().Where(t => typeof(IManufacturer).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+            var manufacturerTypes = assembly.GetTypes().Where(t => typeof(Manufacturer).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
             Assert.IsTrue(manufacturerTypes.Count() >= 1);
 
             foreach (var manufacturerType in manufacturerTypes)

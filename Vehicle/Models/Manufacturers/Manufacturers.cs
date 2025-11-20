@@ -1,23 +1,20 @@
-﻿using Vehicle.Interfaces;
-
-namespace Vehicle.Models.Manufacturers
+﻿namespace Vehicle.Models.Manufacturers
 {
-    // Honda manufactures both cars and motorcycles.
-    internal sealed class Honda : ICarManufacturer, IMotorcycleManufacturer
+    internal sealed class Honda : Manufacturer
     {
         private Honda() { }
         internal static Lazy<Honda> Instance { get; } = new(() => new Honda());
         public override string ToString() => nameof(Honda);
     }
 
-    internal sealed class Toyota : ICarManufacturer
+    internal sealed class Toyota : Manufacturer
     {
         private Toyota() { }
         internal static Lazy<Toyota> Instance { get; } = new(() => new Toyota());
         public override string ToString() => nameof(Toyota);
     }
 
-    internal sealed class KTM : IMotorcycleManufacturer
+    internal sealed class KTM : Manufacturer
     {
         private KTM() { }
         internal static Lazy<KTM> Instance { get; } = new(() => new KTM());
