@@ -16,7 +16,7 @@ namespace Vehicle.Models.Vehicles
         /// <param name="vehicle">When this method returns, contains the created vehicle if the operation succeeded; otherwise, <see
         /// langword="null"/>.</param>
         /// <returns><see langword="true"/> if the vehicle was successfully created; otherwise, <see langword="false"/>.</returns>
-        public static bool TryCreateVehicle(IManufacturer manufacturer, out IVehicle? vehicle)
+        public static bool TryCreateVehicle(IManufacturer manufacturer, out Vehicle? vehicle)
         {
             vehicle = null;
             if (manufacturer is null)
@@ -122,7 +122,7 @@ namespace Vehicle.Models.Vehicles
         /// <param name="vehicle">When this method returns, contains the created vehicle if the operation was successful; otherwise, <see
         /// langword="null"/>.</param>
         /// <returns><see langword="true"/> if the vehicle was successfully created; otherwise, <see langword="false"/>.</returns>
-        public static bool TryCreateVehicle(IManufacturer manufacturer, ITire tire, out IVehicle? vehicle)
+        public static bool TryCreateVehicle(IManufacturer manufacturer, ITire tire, out Vehicle? vehicle)
         {
             vehicle = null;
             if (manufacturer is null)
