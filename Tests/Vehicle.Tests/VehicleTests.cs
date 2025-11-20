@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 
+using VehicleType = Vehicle.Models.Vehicles.Vehicle;
+
 namespace Vehicle.Tests
 {
     [TestClass]
@@ -113,10 +115,10 @@ namespace Vehicle.Tests
         [TestMethod]
         public void Vehicles_DontHavePublicConstructors()
         {
-            var assembly = Assembly.GetAssembly(typeof(IVehicle));
+            var assembly = Assembly.GetAssembly(typeof(VehicleType));
             Assert.IsNotNull(assembly, "Could not get assembly containing IVehicle.");
 
-            var vehicleTypes = assembly.GetTypes().Where(t => typeof(IVehicle).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+            var vehicleTypes = assembly.GetTypes().Where(t => typeof(VehicleType).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
             Assert.IsTrue(vehicleTypes.Count() >= 1);
 
             foreach (var vehicleType in vehicleTypes)
