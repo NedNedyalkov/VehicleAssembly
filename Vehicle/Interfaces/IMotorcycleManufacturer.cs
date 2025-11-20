@@ -1,4 +1,4 @@
 ﻿namespace Vehicle.Interfaces
 {
-    internal interface IMotorcycleManufacturer : IManufacturer;
+    public interface IMotorcycleManufacturer : IManufacturer;
 }

@@ -2,6 +2,8 @@
 {
     internal class SummerTire(float maxTemperatureC = 50, float pressureBar = 2.5f) : Tire(pressureBar)
     {
+        public static Lazy<SummerTire> Default { get; } = new(() => new SummerTire());
+
         // TODO: Add some validation for value.
         /// <summary>
         /// Maximum operating temperature of the tire in Celsius degrees

@@ -3,11 +3,16 @@ using Vehicle.Models.Tires;
 
 namespace Vehicle.Models.Vehicles
 {
-    internal class Car(ICarManufacturer manufacturer, ITire tire) : Vehicle(manufacturer)
+    public sealed class Car : Vehicle
     {
-        public ITire Tire { get; private set; } = tire ?? throw new ArgumentNullException(paramName: nameof(tire));
+        public ITire Tire { get; private set; }
 
-        internal Car(ICarManufacturer manufacturer) : this(manufacturer, new SummerTire())
+        internal Car(ICarManufacturer manufacturer, ITire tire) : base(manufacturer)
+        {
+            Tire = tire ?? throw new ArgumentNullException(paramName: nameof(tire));
+        }
+
+        internal Car(ICarManufacturer manufacturer) : this(manufacturer, SummerTire.Default.Value)
         {
         }
 

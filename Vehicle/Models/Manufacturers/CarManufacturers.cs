@@ -2,9 +2,9 @@
 
 namespace Vehicle.Models.Manufacturers
 {
-    internal class CarManufacturers
+    public class CarManufacturers
     {
-        internal static readonly Lazy<ICarManufacturer> Honda = new(() => new Honda());
-        internal static readonly Lazy<ICarManufacturer> Toyota = new(() => new Toyota());
+        public static Lazy<ICarManufacturer> Honda { get; } = new(() => Manufacturers.Honda.Instance.Value);
+        public static Lazy<ICarManufacturer> Toyota { get; } = new(() => Manufacturers.Toyota.Instance.Value);
     }
 }

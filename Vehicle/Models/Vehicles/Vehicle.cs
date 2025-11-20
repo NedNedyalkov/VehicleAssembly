@@ -2,7 +2,7 @@
 
 namespace Vehicle.Models.Vehicles
 {
-    internal abstract class Vehicle(IManufacturer manufacturer) : IVehicle
+    public abstract class Vehicle(IManufacturer manufacturer) : IVehicle
     {
         public IManufacturer Manufacturer { get; init; } = manufacturer ?? throw new ArgumentNullException(paramName: nameof(manufacturer));
 
