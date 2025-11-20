@@ -1,6 +1,6 @@
-﻿using Vehicle.Interfaces;
+﻿using VehicleAssembly.Interfaces;
 
-namespace Vehicle.Models.Tires
+namespace VehicleAssembly.Models.Tires
 {
     internal abstract class Tire(float pressureBar) : ITire
     {
@@ -11,7 +11,7 @@ namespace Vehicle.Models.Tires
         public float PressureBar { get; set; } = pressureBar;
 
         public override bool Equals(object? obj)
-            => (obj is Tire other)
+            => obj is Tire other
             && PressureBar == other.PressureBar;
         public override int GetHashCode() => HashCode.Combine(PressureBar);
     }

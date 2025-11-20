@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle", "Vehicle\Vehicle.csproj", "{729FC5E6-D657-47EB-89CF-B62D1294074C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAssembly", "VehicleAssembly\VehicleAssembly.csproj", "{729FC5E6-D657-47EB-89CF-B62D1294074C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle.Tests", "Tests\Vehicle.Tests\Vehicle.Tests.csproj", "{66F3F3CB-B766-44A5-8B16-CA5164FB2958}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAssembly.Tests", "Tests\VehicleAssembly.Tests\VehicleAssembly.Tests.csproj", "{66F3F3CB-B766-44A5-8B16-CA5164FB2958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

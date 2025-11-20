@@ -1,4 +1,4 @@
-﻿namespace Vehicle.Models.Tires
+﻿namespace VehicleAssembly.Models.Tires
 {
     internal class SummerTire(float maxTemperatureC = 50, float pressureBar = 2.5f) : Tire(pressureBar)
     {
@@ -13,7 +13,7 @@
         public override string ToString() => $"Summer Tire: MaxTemperature = {MaxTemperatureC} °C, Pressure = {PressureBar} bar";
         public override bool Equals(object? obj)
             => base.Equals(obj)
-            && (obj is SummerTire other)
+            && obj is SummerTire other
             && MaxTemperatureC == other.MaxTemperatureC;
         public override int GetHashCode() => HashCode.Combine(MaxTemperatureC, PressureBar);
     }

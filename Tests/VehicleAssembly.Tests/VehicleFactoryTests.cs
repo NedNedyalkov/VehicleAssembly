@@ -1,6 +1,8 @@
-﻿using VehicleType = Vehicle.Models.Vehicles.Vehicle;
+﻿using VehicleAssembly.Models.Manufacturers;
+using VehicleAssembly.Models.Tires;
+using VehicleAssembly.Models.Vehicles;
 
-namespace Vehicle.Tests
+namespace VehicleAssembly.Tests
 {
     [TestClass]
     public sealed class VehicleFactoryTests
@@ -10,7 +12,7 @@ namespace Vehicle.Tests
         {
             var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, out var vehicle);
             Assert.IsTrue(result);
-            Assert.IsInstanceOfType<VehicleType>(vehicle);
+            Assert.IsInstanceOfType<Vehicle>(vehicle);
         }
 
         [TestMethod]
@@ -35,7 +37,7 @@ namespace Vehicle.Tests
         {
             var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, tire: SummerTire.Default.Value, out var vehicle);
             Assert.IsTrue(result);
-            Assert.IsInstanceOfType<VehicleType>(vehicle);
+            Assert.IsInstanceOfType<Vehicle>(vehicle);
         }
 
         [TestMethod]
