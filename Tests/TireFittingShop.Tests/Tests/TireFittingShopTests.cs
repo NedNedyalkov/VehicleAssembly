@@ -121,6 +121,8 @@ namespace TireFittingShop.Tests.Tests
                 out var minExpectedDuration,
                 out var maxExpectedDuration);
 
+            // Add a small buffer for timing inaccuracies of Task.Delay
+            minExpectedDuration -= TimeSpan.FromSeconds(0.1);
             // Add a small buffer for the actual work done
             maxExpectedDuration += TimeSpan.FromSeconds(Math.Max(1, maxExpectedDuration.TotalSeconds * 0.1));
 
