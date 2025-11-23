@@ -24,23 +24,23 @@ namespace TireFittingShop.Simulation
             TimeSpan maxArrival,
             TimeSpan minChange,
             TimeSpan maxChange,
-            Func<ICustomerFactory>? customerGeneratorFactory = null,
-            Func<ILogger>? loggerFactory = null,
-            Func<IRandomProvider>? randomProviderFactory = null,
-            Func<IWorkSimulator>? workSimulatorFactory = null)
+            Func<ICustomerFactory> customerGeneratorFactory,
+            Func<ILogger> loggerFactory,
+            Func<IRandomProvider> randomProviderFactory,
+            Func<IWorkSimulator> workSimulatorFactory)
         {
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalCustomers);
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(concurrentMechanics);
-            ArgumentOutOfRangeException.ThrowIfNegative(minArrival.TotalSeconds);
-            ArgumentOutOfRangeException.ThrowIfNegative(maxArrival.TotalSeconds);
-            ArgumentOutOfRangeException.ThrowIfNegative(minChange.TotalSeconds);
-            ArgumentOutOfRangeException.ThrowIfNegative(maxChange.TotalSeconds);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalCustomers, nameof(totalCustomers));
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(concurrentMechanics, nameof(concurrentMechanics));
+            ArgumentOutOfRangeException.ThrowIfNegative(minArrival.TotalSeconds, nameof(minArrival));
+            ArgumentOutOfRangeException.ThrowIfNegative(maxArrival.TotalSeconds, nameof(maxArrival));
+            ArgumentOutOfRangeException.ThrowIfNegative(minChange.TotalSeconds, nameof(minChange));
+            ArgumentOutOfRangeException.ThrowIfNegative(maxChange.TotalSeconds, nameof(maxChange));
             ArgumentOutOfRangeException.ThrowIfGreaterThan(minArrival, maxArrival);
             ArgumentOutOfRangeException.ThrowIfGreaterThan(minChange, maxChange);
-            ArgumentException.ThrowIfNullOrEmpty(customerGeneratorFactory?.ToString(), nameof(customerGeneratorFactory));
-            ArgumentException.ThrowIfNullOrEmpty(loggerFactory?.ToString(), nameof(loggerFactory));
-            ArgumentException.ThrowIfNullOrEmpty(randomProviderFactory?.ToString(), nameof(randomProviderFactory));
-            ArgumentException.ThrowIfNullOrEmpty(workSimulatorFactory?.ToString(), nameof(workSimulatorFactory));
+            ArgumentNullException.ThrowIfNull(customerGeneratorFactory, nameof(customerGeneratorFactory));
+            ArgumentNullException.ThrowIfNull(loggerFactory, nameof(loggerFactory));
+            ArgumentNullException.ThrowIfNull(randomProviderFactory, nameof(randomProviderFactory));
+            ArgumentNullException.ThrowIfNull(workSimulatorFactory, nameof(workSimulatorFactory));
 
             TotalCustomers = totalCustomers;
             ConcurrentMechanics = concurrentMechanics;
@@ -61,15 +61,14 @@ namespace TireFittingShop.Simulation
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             using var waitingCustomers = new BlockingCollection<Customer>();
-            var randomProvider = RandomProviderFactory();
-            var workSimulator = WorkSimulatorFactory();
+            var sharedWorkSimulator = WorkSimulatorFactory();
             var logger = LoggerFactory();
 
             var customerGenerator = new CustomerProducer(
                 MinCustomerArrivalTime,
                 MaxCustomerArrivalTime,
-                randomProvider,
-                workSimulator,
+                RandomProviderFactory(),
+                sharedWorkSimulator,
                 logger,
                 CustomerGeneratorFactory());
 
@@ -83,8 +82,8 @@ namespace TireFittingShop.Simulation
                     var mechanic = new Mechanic(
                         MinChangeTireTime,
                         MaxChangeTireTime,
-                        randomProvider,
-                        workSimulator,
+                        RandomProviderFactory(),
+                        sharedWorkSimulator,
                         logger);
                     await MechanicWorkLoopAsync(waitingCustomers, mechanic, cancellationToken);
                 }, cancellationToken));

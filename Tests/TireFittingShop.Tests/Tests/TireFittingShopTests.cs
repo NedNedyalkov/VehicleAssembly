@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using TireFittingShop.Abstractions;
 using TireFittingShop.Services;
 using TireFittingShop.Tests.Utilities;
 
@@ -156,8 +157,73 @@ namespace TireFittingShop.Tests.Tests
                     minArrival: TimeSpan.FromSeconds(minArrivalTimeRangeSec),
                     maxArrival: TimeSpan.FromSeconds(maxArrivalTimeRangeSec),
                     minChange: TimeSpan.FromSeconds(minChangeTireTimeRangeSec),
-                    maxChange: TimeSpan.FromSeconds(maxChangeTireTimeRangeSec)
+                    maxChange: TimeSpan.FromSeconds(maxChangeTireTimeRangeSec),
+                    customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider(seed: TestSeed)),
+                    loggerFactory: () => new MemoryLogger(new RealTimeProvider()),
+                    randomProviderFactory: () => new SystemRandomProvider(seed: TestSeed),
+                    workSimulatorFactory: () => new TaskDelayWorkSimulator()
             ));
+        }
+
+        [TestMethod]
+        public void TireFittingShop_NoFactories_ThrowExceptions()
+        {
+            static ICustomerFactory customerGeneratorFactory() => new RandomCustomerFactory(new SystemRandomProvider(seed: TestSeed));
+            static ILogger loggerFactory() => new MemoryLogger(new RealTimeProvider());
+            static IRandomProvider randomProviderFactory() => new SystemRandomProvider(seed: TestSeed);
+            static IWorkSimulator workSimulatorFactory() => new TaskDelayWorkSimulator();
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+                new Simulation.TireFittingShop(
+                    totalCustomers: 1,
+                    concurrentMechanics: 1,
+                    minArrival: TimeSpan.FromSeconds(1),
+                    maxArrival: TimeSpan.FromSeconds(1),
+                    minChange: TimeSpan.FromSeconds(1),
+                    maxChange: TimeSpan.FromSeconds(1),
+                    customerGeneratorFactory: null!,
+                    loggerFactory: loggerFactory,
+                    randomProviderFactory: randomProviderFactory,
+                    workSimulatorFactory: workSimulatorFactory));
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+                new Simulation.TireFittingShop(
+                    totalCustomers: 1,
+                    concurrentMechanics: 1,
+                    minArrival: TimeSpan.FromSeconds(1),
+                    maxArrival: TimeSpan.FromSeconds(1),
+                    minChange: TimeSpan.FromSeconds(1),
+                    maxChange: TimeSpan.FromSeconds(1),
+                    customerGeneratorFactory: customerGeneratorFactory,
+                    loggerFactory: null!,
+                    randomProviderFactory: randomProviderFactory,
+                    workSimulatorFactory: workSimulatorFactory));
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+                new Simulation.TireFittingShop(
+                    totalCustomers: 1,
+                    concurrentMechanics: 1,
+                    minArrival: TimeSpan.FromSeconds(1),
+                    maxArrival: TimeSpan.FromSeconds(1),
+                    minChange: TimeSpan.FromSeconds(1),
+                    maxChange: TimeSpan.FromSeconds(1),
+                    customerGeneratorFactory: customerGeneratorFactory,
+                    loggerFactory: loggerFactory,
+                    randomProviderFactory: null!,
+                    workSimulatorFactory: workSimulatorFactory));
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+                new Simulation.TireFittingShop(
+                    totalCustomers: 1,
+                    concurrentMechanics: 1,
+                    minArrival: TimeSpan.FromSeconds(1),
+                    maxArrival: TimeSpan.FromSeconds(1),
+                    minChange: TimeSpan.FromSeconds(1),
+                    maxChange: TimeSpan.FromSeconds(1),
+                    customerGeneratorFactory: customerGeneratorFactory,
+                    loggerFactory: loggerFactory,
+                    randomProviderFactory: randomProviderFactory,
+                    workSimulatorFactory: null!));
         }
 
         [DataTestMethod]
