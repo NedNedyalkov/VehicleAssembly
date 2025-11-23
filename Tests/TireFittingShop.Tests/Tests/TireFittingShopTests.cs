@@ -95,7 +95,8 @@ namespace TireFittingShop.Tests.Tests
         {
             Random rnd = new(TestSeed);
             MemoryLogger logger = null!;
-            var tireFittingShop = new Simulation.TireFittingShop(
+
+            var config = new Simulation.TireFittingShopConfiguration(
                 totalCustomers: customers,
                 concurrentMechanics: mechanics,
                 minArrival: TimeSpan.FromSeconds(minArrivalTimeRangeSec),
@@ -107,6 +108,7 @@ namespace TireFittingShop.Tests.Tests
                 randomProviderFactory: () => new SystemRandomProvider(seed: rnd.Next()),
                 workSimulatorFactory: () => new TaskDelayWorkSimulator()
             );
+            var tireFittingShop = new Simulation.TireFittingShop(config);
 
             Debug.WriteLine($"Starting simulation with {customers} customers and {mechanics} mechanics.");
             Debug.WriteLine($"Arrival time range: {minArrivalTimeRangeSec}s - {maxArrivalTimeRangeSec}s.");
@@ -142,7 +144,7 @@ namespace TireFittingShop.Tests.Tests
         [DataRow(1, 0, 0, 1, 2, 5)] // 0 mechanics
         [DataRow(1, 1, 1, 0, 5, 2)] // min arrival time > max arrival time
         [DataRow(1, 1, 1, 0, 5, 2)] // min change time > max change time
-        public void TireFittingShop_InvalidSimulationOptions_ThrowExceptions(
+        public void TireFittingShopConfiguration_InvalidSimulationOptions_ThrowExceptions(
             int customers,
             int mechanics,
             double minArrivalTimeRangeSec,
@@ -151,7 +153,7 @@ namespace TireFittingShop.Tests.Tests
             double maxChangeTireTimeRangeSec)
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                new Simulation.TireFittingShop(
+                new Simulation.TireFittingShopConfiguration(
                     totalCustomers: customers,
                     concurrentMechanics: mechanics,
                     minArrival: TimeSpan.FromSeconds(minArrivalTimeRangeSec),
@@ -166,7 +168,7 @@ namespace TireFittingShop.Tests.Tests
         }
 
         [TestMethod]
-        public void TireFittingShop_NoFactories_ThrowExceptions()
+        public void TireFittingShopConfiguration_NoFactories_ThrowExceptions()
         {
             static ICustomerFactory customerGeneratorFactory() => new RandomCustomerFactory(new SystemRandomProvider(seed: TestSeed));
             static ILogger loggerFactory() => new MemoryLogger(new RealTimeProvider());
@@ -174,7 +176,7 @@ namespace TireFittingShop.Tests.Tests
             static IWorkSimulator workSimulatorFactory() => new TaskDelayWorkSimulator();
 
             Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShop(
+                new Simulation.TireFittingShopConfiguration(
                     totalCustomers: 1,
                     concurrentMechanics: 1,
                     minArrival: TimeSpan.FromSeconds(1),
@@ -187,7 +189,7 @@ namespace TireFittingShop.Tests.Tests
                     workSimulatorFactory: workSimulatorFactory));
 
             Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShop(
+                new Simulation.TireFittingShopConfiguration(
                     totalCustomers: 1,
                     concurrentMechanics: 1,
                     minArrival: TimeSpan.FromSeconds(1),
@@ -200,7 +202,7 @@ namespace TireFittingShop.Tests.Tests
                     workSimulatorFactory: workSimulatorFactory));
 
             Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShop(
+                new Simulation.TireFittingShopConfiguration(
                     totalCustomers: 1,
                     concurrentMechanics: 1,
                     minArrival: TimeSpan.FromSeconds(1),
@@ -213,7 +215,7 @@ namespace TireFittingShop.Tests.Tests
                     workSimulatorFactory: workSimulatorFactory));
 
             Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShop(
+                new Simulation.TireFittingShopConfiguration(
                     totalCustomers: 1,
                     concurrentMechanics: 1,
                     minArrival: TimeSpan.FromSeconds(1),

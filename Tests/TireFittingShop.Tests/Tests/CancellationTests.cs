@@ -15,7 +15,7 @@ namespace TireFittingShop.Tests.Tests
         {
             Random rnd = new(TestSeed);
 
-            var tireFittingShop = new Simulation.TireFittingShop(
+            var config = new Simulation.TireFittingShopConfiguration(
                 totalCustomers: 100,
                 concurrentMechanics: 4,
                 minArrival: TimeSpan.FromSeconds(0),
@@ -27,6 +27,8 @@ namespace TireFittingShop.Tests.Tests
                 randomProviderFactory: () => new SystemRandomProvider(seed: rnd.Next()),
                 workSimulatorFactory: () => new TaskDelayWorkSimulator()
             );
+
+            var tireFittingShop = new Simulation.TireFittingShop(config);
 
             using var cts = new CancellationTokenSource();
             cts.CancelAfter(TimeSpan.FromMilliseconds(1000));

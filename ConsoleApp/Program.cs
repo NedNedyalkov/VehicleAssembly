@@ -52,7 +52,7 @@ namespace ConsoleApp
             RealTimeProvider timeProvider = null!;
             ConsoleLogger logger = null!;
 
-            var tireFittingShop = new TireFittingShop.Simulation.TireFittingShop(
+            var config = new TireFittingShop.Simulation.TireFittingShopConfiguration(
                 totalCustomers: (int)requiredParameters[0].Value,
                 concurrentMechanics: (int)requiredParameters[1].Value,
                 minArrival: TimeSpan.FromSeconds((float)requiredParameters[2].Value),
@@ -63,6 +63,8 @@ namespace ConsoleApp
                 loggerFactory: () => logger = new ConsoleLogger(timeProvider = new RealTimeProvider()),
                 randomProviderFactory: () => new SystemRandomProvider(),
                 workSimulatorFactory: () => new TaskDelayWorkSimulator());
+
+            var tireFittingShop = new TireFittingShop.Simulation.TireFittingShop(config);
 
             var consoleTask = Task.Run(() =>
             {

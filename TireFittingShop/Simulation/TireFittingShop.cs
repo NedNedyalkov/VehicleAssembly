@@ -4,56 +4,8 @@ using TireFittingShop.Domain;
 
 namespace TireFittingShop.Simulation
 {
-    public class TireFittingShop
+    public class TireFittingShop(TireFittingShopConfiguration config)
     {
-        public int TotalCustomers { get; }
-        public int ConcurrentMechanics { get; }
-        public TimeSpan MinCustomerArrivalTime { get; }
-        public TimeSpan MaxCustomerArrivalTime { get; }
-        public TimeSpan MinChangeTireTime { get; }
-        public TimeSpan MaxChangeTireTime { get; }
-        public Func<ICustomerFactory> CustomerGeneratorFactory { get; }
-        public Func<ILogger> LoggerFactory { get; }
-        public Func<IRandomProvider> RandomProviderFactory { get; }
-        public Func<IWorkSimulator> WorkSimulatorFactory { get; }
-
-        public TireFittingShop(
-            int totalCustomers,
-            int concurrentMechanics,
-            TimeSpan minArrival,
-            TimeSpan maxArrival,
-            TimeSpan minChange,
-            TimeSpan maxChange,
-            Func<ICustomerFactory> customerGeneratorFactory,
-            Func<ILogger> loggerFactory,
-            Func<IRandomProvider> randomProviderFactory,
-            Func<IWorkSimulator> workSimulatorFactory)
-        {
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalCustomers, nameof(totalCustomers));
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(concurrentMechanics, nameof(concurrentMechanics));
-            ArgumentOutOfRangeException.ThrowIfNegative(minArrival.TotalSeconds, nameof(minArrival));
-            ArgumentOutOfRangeException.ThrowIfNegative(maxArrival.TotalSeconds, nameof(maxArrival));
-            ArgumentOutOfRangeException.ThrowIfNegative(minChange.TotalSeconds, nameof(minChange));
-            ArgumentOutOfRangeException.ThrowIfNegative(maxChange.TotalSeconds, nameof(maxChange));
-            ArgumentOutOfRangeException.ThrowIfGreaterThan(minArrival, maxArrival);
-            ArgumentOutOfRangeException.ThrowIfGreaterThan(minChange, maxChange);
-            ArgumentNullException.ThrowIfNull(customerGeneratorFactory, nameof(customerGeneratorFactory));
-            ArgumentNullException.ThrowIfNull(loggerFactory, nameof(loggerFactory));
-            ArgumentNullException.ThrowIfNull(randomProviderFactory, nameof(randomProviderFactory));
-            ArgumentNullException.ThrowIfNull(workSimulatorFactory, nameof(workSimulatorFactory));
-
-            TotalCustomers = totalCustomers;
-            ConcurrentMechanics = concurrentMechanics;
-            MinCustomerArrivalTime = minArrival;
-            MaxCustomerArrivalTime = maxArrival;
-            MinChangeTireTime = minChange;
-            MaxChangeTireTime = maxChange;
-            RandomProviderFactory = randomProviderFactory;
-            WorkSimulatorFactory = workSimulatorFactory;
-            LoggerFactory = loggerFactory;
-            CustomerGeneratorFactory = customerGeneratorFactory;
-        }
-
         /// <summary>
         /// Runs the full tire fitting simulation.
         /// Spawns a producer that creates customers and multiple mechanics processing them concurrently.
@@ -61,28 +13,28 @@ namespace TireFittingShop.Simulation
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             using var waitingCustomers = new BlockingCollection<Customer>();
-            var sharedWorkSimulator = WorkSimulatorFactory();
-            var logger = LoggerFactory();
+            var sharedWorkSimulator = config.WorkSimulatorFactory();
+            var logger = config.LoggerFactory();
 
             var customerGenerator = new CustomerProducer(
-                MinCustomerArrivalTime,
-                MaxCustomerArrivalTime,
-                RandomProviderFactory(),
+                config.MinCustomerArrivalTime,
+                config.MaxCustomerArrivalTime,
+                config.RandomProviderFactory(),
                 sharedWorkSimulator,
                 logger,
-                CustomerGeneratorFactory());
+                config.CustomerGeneratorFactory());
 
             // Start customer producer
-            var producerTask = Task.Run(() => ProduceCustomersAsync(waitingCustomers, TotalCustomers, customerGenerator, cancellationToken), cancellationToken);
+            var producerTask = Task.Run(() => ProduceCustomersAsync(waitingCustomers, config.TotalCustomers, customerGenerator, cancellationToken), cancellationToken);
 
             // Start mechanics
-            var mechanicTasks = Enumerable.Range(0, ConcurrentMechanics)
+            var mechanicTasks = Enumerable.Range(0, config.ConcurrentMechanics)
                 .Select(_ => Task.Run(async () =>
                 {
                     var mechanic = new Mechanic(
-                        MinChangeTireTime,
-                        MaxChangeTireTime,
-                        RandomProviderFactory(),
+                        config.MinChangeTireTime,
+                        config.MaxChangeTireTime,
+                        config.RandomProviderFactory(),
                         sharedWorkSimulator,
                         logger);
                     await MechanicWorkLoopAsync(waitingCustomers, mechanic, cancellationToken);
