@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp.Utilities
+﻿using ConsoleApp.Services;
+
+namespace ConsoleApp.Utilities
 {
     internal class ConsoleParametersParser
     {
