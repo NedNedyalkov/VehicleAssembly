@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using VehicleAssembly.Tests.Utilities;
-using VehicleAssembly.Domain.Tires;
 using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Tires;
 using VehicleAssembly.Domain.Vehicles;
 using VehicleAssembly.Factories;
+using VehicleAssembly.Tests.Utilities;
 
 namespace VehicleAssembly.Tests.Tests
 {
@@ -11,49 +11,39 @@ namespace VehicleAssembly.Tests.Tests
     public sealed class VehicleTests
     {
         [TestMethod]
-        [DoNotParallelize] // Do not parallelize to avoid console output conflicts
         public void Vehicle_Cars_ShowInformation()
         {
-            var car = new Car(CarManufacturers.Honda.Value);
-            using var sw = new StringWriter();
-            Console.SetOut(sw);
+            var logger = new MemoryLogger();
+            var car = new Car(CarManufacturers.Honda.Value, logger);
 
             car.ShowInformation();
 
-            var output = sw.ToString();
-
-            output.ShouldContain("Driving a car from Honda");
-            output.ShouldContain("Summer Tire");
+            var log = logger.Log.ToString();
+            log.ShouldContain("Driving a car from Honda");
+            log.ShouldContain("Summer Tire");
         }
 
         [TestMethod]
-        [DoNotParallelize] // Do not parallelize to avoid console output conflicts
         public void Vehicle_Motorcycles_ShowInformation()
         {
-            var motorcycle = new Motorcycle(MotorcycleManufacturers.Honda.Value);
-            using var sw = new StringWriter();
-            Console.SetOut(sw);
+            var logger = new MemoryLogger();
+            var motorcycle = new Motorcycle(MotorcycleManufacturers.Honda.Value, logger);
 
             motorcycle.ShowInformation();
 
-            var output = sw.ToString();
-            var expected = "Driving a motorcycle from Honda";
-            output.ShouldContain(expected);
+            logger.Log.ToString().ShouldContain("Driving a motorcycle from Honda");
         }
 
         [TestMethod]
-        [DoNotParallelize] // Do not parallelize to avoid console output conflicts
         public void Vehicle_ShowInformationReflectsReplacedTires()
         {
-            var car = new Car(CarManufacturers.Honda.Value);
-            using var sw = new StringWriter();
-            Console.SetOut(sw);
+            var logger = new MemoryLogger();
+            var car = new Car(CarManufacturers.Honda.Value, logger);
 
             car.ReplaceTires(new WinterTire(-10, 3.1f, 2.0f));
             car.ShowInformation();
-            var output = sw.ToString();
 
-            output.ShouldContain("Winter Tire: MinTemperature = -10 °C, Thickness = 3.1 cm, Pressure=2 bar");
+            logger.Log.ToString().ShouldContain("Winter Tire: MinTemperature = -10 °C, Thickness = 3.1 cm, Pressure=2 bar");
         }
 
 
@@ -122,12 +112,12 @@ namespace VehicleAssembly.Tests.Tests
             Assert.IsNotNull(assembly, "Could not get assembly containing IVehicle.");
 
             var vehicleTypes = assembly.GetTypes().Where(t => typeof(Vehicle).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
-            Assert.IsTrue(vehicleTypes.Count() >= 1);
+            Assert.IsTrue(vehicleTypes.Any());
 
             foreach (var vehicleType in vehicleTypes)
             {
                 var constructors = vehicleType.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                Assert.IsTrue(constructors.Count() >= 1);
+                Assert.IsTrue(constructors.Length >= 1);
 
                 foreach (var constructor in constructors)
                 {

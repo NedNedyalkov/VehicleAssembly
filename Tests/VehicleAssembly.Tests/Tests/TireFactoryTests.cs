@@ -1,5 +1,5 @@
 ﻿using VehicleAssembly.Domain.Tires;
-using VehicleAssembly.Domain.Vehicles;
+using VehicleAssembly.Factories;
 
 namespace VehicleAssembly.Tests.Tests
 {

@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines a generic logging interface for messages generated during simulation.
     /// </summary>
-    public interface ILogger
+    internal interface ILogger
     {
         /// <summary>
         /// Writes a message to the log or output.

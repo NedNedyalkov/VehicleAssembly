@@ -1,6 +1,6 @@
 ﻿using VehicleAssembly.Domain.Tires;
 
-namespace VehicleAssembly.Domain.Vehicles
+namespace VehicleAssembly.Factories
 {
     public static class TireFactory
     {
