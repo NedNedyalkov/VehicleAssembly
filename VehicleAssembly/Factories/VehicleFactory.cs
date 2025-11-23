@@ -1,5 +1,5 @@
-﻿using VehicleAssembly.Abstractions;
-using VehicleAssembly.Domain.Manufacturers;
+﻿using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Tires;
 using VehicleAssembly.Domain.Vehicles;
 
 namespace VehicleAssembly.Factories
@@ -127,7 +127,7 @@ namespace VehicleAssembly.Factories
         /// <param name="vehicle">When this method returns, contains the created vehicle if the operation was successful; otherwise, <see
         /// langword="null"/>.</param>
         /// <returns><see langword="true"/> if the vehicle was successfully created; otherwise, <see langword="false"/>.</returns>
-        public static bool TryCreateVehicle(CarManufacturersEnum manufacturer, ITire tire, out Vehicle? vehicle)
+        public static bool TryCreateVehicle(CarManufacturersEnum manufacturer, Tire tire, out Vehicle? vehicle)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace VehicleAssembly.Factories
         /// <param name="car">When this method returns, contains the created <see cref="Car"/> instance if the operation succeeds;
         /// otherwise, <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if the car was successfully created; otherwise, <see langword="false"/>.</returns>
-        public static bool TryCreateCar(CarManufacturersEnum manufacturer, ITire tire, out Car? car)
+        public static bool TryCreateCar(CarManufacturersEnum manufacturer, Tire tire, out Car? car)
         {
             try
             {

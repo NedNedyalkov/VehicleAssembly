@@ -1,23 +1,16 @@
-﻿using VehicleAssembly.Abstractions;
-
-namespace VehicleAssembly.Domain.Tires
+﻿namespace VehicleAssembly.Domain.Tires
 {
-    internal abstract class Tire : ITire
+    public abstract record Tire
     {
         /// <summary>
         /// Recommended pressure of the tire in bars
         /// </summary>
-        public float PressureBar { get; set; }
+        public float PressureBar { get; }
 
-        public Tire(float pressureBar)
+        internal Tire(float pressureBar)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(pressureBar, nameof(pressureBar));
             PressureBar = pressureBar;
         }
-
-        public override bool Equals(object? obj)
-            => obj is Tire other
-            && PressureBar == other.PressureBar;
-        public override int GetHashCode() => HashCode.Combine(PressureBar);
     }
 }

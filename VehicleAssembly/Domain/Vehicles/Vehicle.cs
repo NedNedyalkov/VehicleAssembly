@@ -2,7 +2,7 @@
 
 namespace VehicleAssembly.Domain.Vehicles
 {
-    public abstract class Vehicle
+    public abstract record Vehicle
     {
         internal Vehicle(Manufacturer manufacturer)
         {

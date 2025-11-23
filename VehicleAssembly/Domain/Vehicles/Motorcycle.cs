@@ -2,7 +2,7 @@
 
 namespace VehicleAssembly.Domain.Vehicles
 {
-    public sealed class Motorcycle : Vehicle
+    public sealed record Motorcycle : Vehicle
     {
         internal Motorcycle(Manufacturer manufacturer) : base(manufacturer)
         {
