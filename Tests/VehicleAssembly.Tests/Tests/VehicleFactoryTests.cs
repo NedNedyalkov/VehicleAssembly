@@ -2,7 +2,7 @@
 using VehicleAssembly.Models.Tires;
 using VehicleAssembly.Models.Vehicles;
 
-namespace VehicleAssembly.Tests
+namespace VehicleAssembly.Tests.Tests
 {
     [TestClass]
     public sealed class VehicleFactoryTests

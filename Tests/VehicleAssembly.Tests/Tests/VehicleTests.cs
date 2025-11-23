@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
+using VehicleAssembly.Tests.Utilities;
 
-namespace VehicleAssembly.Tests
+namespace VehicleAssembly.Tests.Tests
 {
     [TestClass]
     public sealed class VehicleTests

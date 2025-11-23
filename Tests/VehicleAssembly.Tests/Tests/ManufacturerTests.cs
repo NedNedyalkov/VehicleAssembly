@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace VehicleAssembly.Tests
+namespace VehicleAssembly.Tests.Tests
 {
     [TestClass]
     public sealed class ManufacturerTests

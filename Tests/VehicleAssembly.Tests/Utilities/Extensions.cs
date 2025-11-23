@@ -1,4 +1,4 @@
-﻿namespace VehicleAssembly.Tests
+﻿namespace VehicleAssembly.Tests.Utilities
 {
     internal class Extensions
     {
