@@ -1,6 +1,5 @@
 ﻿using TireFittingShop.Abstractions;
 using TireFittingShop.Domain;
-using VehicleAssembly.Abstractions;
 
 namespace TireFittingShop.Simulation
 {

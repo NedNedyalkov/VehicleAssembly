@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using TireFittingShop.Abstractions;
-using VehicleAssembly.Abstractions;
 
 namespace TireFittingShop.Services
 {
