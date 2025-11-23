@@ -19,12 +19,12 @@ namespace TireFittingShop.Services
 
             foreach (var carManufacturer in Enum.GetValues<CarManufacturersEnum>())
             {
-                    _vehicleFactories.Add(() =>
-                    {
-                        VehicleFactory.TryCreateVehicle(carManufacturer, out var car);
-                        Debug.Assert(car is not null, $"Failed to create car for manufacturer {carManufacturer}.");
-                        return car!;
-                    });
+                _vehicleFactories.Add(() =>
+                {
+                    VehicleFactory.TryCreateVehicle(carManufacturer, out var car);
+                    Debug.Assert(car is not null, $"Failed to create car for manufacturer {carManufacturer}.");
+                    return car!;
+                });
             }
         }
 
@@ -32,7 +32,7 @@ namespace TireFittingShop.Services
         {
             var randomId = _randomProvider.NextInt();
             var vehicleFactory = _vehicleFactories[randomId % _vehicleFactories.Count];
-            return new Customer(_nextCustomerId++, vehicleFactory?.Invoke()!);
+            return new Customer(_nextCustomerId++, vehicleFactory.Invoke());
         }
     }
 }
