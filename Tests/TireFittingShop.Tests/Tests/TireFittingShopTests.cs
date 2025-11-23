@@ -144,7 +144,7 @@ namespace TireFittingShop.Tests.Tests
         [DataRow(1, 0, 0, 1, 2, 5)] // 0 mechanics
         [DataRow(1, 1, 1, 0, 5, 2)] // min arrival time > max arrival time
         [DataRow(1, 1, 1, 0, 5, 2)] // min change time > max change time
-        public void TireFittingShopConfiguration_InvalidSimulationOptions_ThrowExceptions(
+        public void TireFittingShopConfiguration_InvalidSimulationOptions_ThrowException(
             int customers,
             int mechanics,
             double minArrivalTimeRangeSec,
@@ -168,7 +168,7 @@ namespace TireFittingShop.Tests.Tests
         }
 
         [TestMethod]
-        public void TireFittingShopConfiguration_NoFactories_ThrowExceptions()
+        public void TireFittingShopConfiguration_NoFactories_ThrowException()
         {
             static ICustomerFactory customerGeneratorFactory() => new RandomCustomerFactory(new SystemRandomProvider(seed: TestSeed));
             static ILogger loggerFactory() => new MemoryLogger(new RealTimeProvider());
