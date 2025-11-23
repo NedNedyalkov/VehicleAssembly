@@ -8,10 +8,12 @@ namespace TireFittingShop.Tests.Tests
     [TestClass]
     public class CancellationTests
     {
+        private const int TestSeed = 42;
+
         [TestMethod]
         public async Task TireFittingShop_ProcessOrderAsync_CancelsOperationWhenRequested()
         {
-            Random rnd = new(42);
+            Random rnd = new(TestSeed);
 
             var tireFittingShop = new Simulation.TireFittingShop(
                 totalCustomers: 100,
@@ -56,7 +58,7 @@ namespace TireFittingShop.Tests.Tests
         [TestMethod]
         public async Task CustomerConsumer_Cancellation_CancelsOperationWhenRequested()
         {
-            var randomProvider = new SystemRandomProvider(seed: 42);
+            var randomProvider = new SystemRandomProvider(seed: TestSeed);
             var delaySimulator = new TaskDelayWorkSimulator();
             var logger = new MemoryLogger(new RealTimeProvider());
 

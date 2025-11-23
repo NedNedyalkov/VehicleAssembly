@@ -7,6 +7,8 @@ namespace TireFittingShop.Tests.Tests
     [TestClass]
     public sealed class TireFittingShopTests
     {
+        private const int TestSeed = 42;
+
         [DataTestMethod]
         //Task cases
         [DataRow(5, 2, 0, 1, 2, 5)]
@@ -90,7 +92,7 @@ namespace TireFittingShop.Tests.Tests
             double minChangeTireTimeRangeSec,
             double maxChangeTireTimeRangeSec)
         {
-            Random rnd = new(42);
+            Random rnd = new(TestSeed);
             MemoryLogger logger = null!;
             var tireFittingShop = new Simulation.TireFittingShop(
                 totalCustomers: customers,
