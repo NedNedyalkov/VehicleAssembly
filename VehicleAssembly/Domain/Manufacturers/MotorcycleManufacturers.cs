@@ -1,8 +1,8 @@
 ﻿namespace VehicleAssembly.Domain.Manufacturers
 {
-    public class MotorcycleManufacturers
+    internal class MotorcycleManufacturers
     {
-        public static Lazy<Manufacturer> Honda { get; } = new(() => Manufacturers.Honda.Instance.Value);
-        public static Lazy<Manufacturer> Ktm { get; } = new(() => KTM.Instance.Value);
+        internal static Lazy<Manufacturer> Honda { get; } = new(() => Manufacturers.Honda.Instance.Value);
+        internal static Lazy<Manufacturer> Ktm { get; } = new(() => KTM.Instance.Value);
     }
 }

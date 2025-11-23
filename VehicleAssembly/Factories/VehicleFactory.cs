@@ -67,20 +67,15 @@ namespace VehicleAssembly.Factories
         /// langword="false"/>.</returns>
         public static bool TryCreateCar(CarManufacturersEnum manufacturer, out Car? car)
         {
+            car = null;
             try
             {
-                car = manufacturer switch
-                {
-                    CarManufacturersEnum.Honda => new Car(CarManufacturers.Honda.Value),
-                    CarManufacturersEnum.Toyota => new Car(CarManufacturers.Toyota.Value),
-                    _ => null
-                };
-            }
-            catch
-            {
-                car = null;
-            }
+                if (!ManufacturerFactory.TryCreateCarManufacturer(manufacturer, out var result))
+                    return false;
 
+                car = new Car(result!);
+            }
+            catch { }
             return car is not null;
         }
 
@@ -96,19 +91,15 @@ namespace VehicleAssembly.Factories
         /// langword="false"/>.</returns>
         public static bool TryCreateMotorcycle(MotorcycleManufacturersEnum manufacturer, out Motorcycle? motorcycle)
         {
+            motorcycle = null;
             try
             {
-                motorcycle = manufacturer switch
-                {
-                    MotorcycleManufacturersEnum.Honda => new Motorcycle(MotorcycleManufacturers.Honda.Value),
-                    MotorcycleManufacturersEnum.Ktm => new Motorcycle(MotorcycleManufacturers.Ktm.Value),
-                    _ => null
-                };
+                if (!ManufacturerFactory.TryCreateMotorcycleManufacturer(manufacturer, out var result))
+                    return false;
+
+                motorcycle = new Motorcycle(result!);
             }
-            catch
-            {
-                motorcycle = null;
-            }
+            catch { }
             return motorcycle is not null;
         }
 
@@ -157,19 +148,15 @@ namespace VehicleAssembly.Factories
         /// <returns><see langword="true"/> if the car was successfully created; otherwise, <see langword="false"/>.</returns>
         public static bool TryCreateCar(CarManufacturersEnum manufacturer, Tire tire, out Car? car)
         {
+            car = null;
             try
             {
-                car = manufacturer switch
-                {
-                    CarManufacturersEnum.Honda => new Car(CarManufacturers.Honda.Value, tire),
-                    CarManufacturersEnum.Toyota => new Car(CarManufacturers.Toyota.Value, tire),
-                    _ => null
-                };
+                if (!ManufacturerFactory.TryCreateCarManufacturer(manufacturer, out var result))
+                    return false;
+
+                car = new Car(result!, tire);
             }
-            catch
-            {
-                car = null;
-            }
+            catch { }
             return car is not null;
         }
     }
