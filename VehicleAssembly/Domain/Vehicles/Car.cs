@@ -1,8 +1,8 @@
-﻿using VehicleAssembly.Interfaces;
-using VehicleAssembly.Models.Manufacturers;
-using VehicleAssembly.Models.Tires;
+﻿using VehicleAssembly.Abstractions;
+using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Tires;
 
-namespace VehicleAssembly.Models.Vehicles
+namespace VehicleAssembly.Domain.Vehicles
 {
     public sealed class Car : Vehicle
     {

@@ -1,7 +1,8 @@
-﻿using VehicleAssembly.Interfaces;
-using VehicleAssembly.Models.Manufacturers;
+﻿using VehicleAssembly.Abstractions;
+using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Vehicles;
 
-namespace VehicleAssembly.Models.Vehicles
+namespace VehicleAssembly.Factories
 {
     public static class VehicleFactory
     {

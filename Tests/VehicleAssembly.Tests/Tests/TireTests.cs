@@ -1,4 +1,6 @@
-﻿namespace VehicleAssembly.Tests.Tests
+﻿using VehicleAssembly.Domain.Tires;
+
+namespace VehicleAssembly.Tests.Tests
 {
     [TestClass]
     public class TireTests

@@ -1,4 +1,4 @@
-﻿namespace VehicleAssembly.Models.Manufacturers
+﻿namespace VehicleAssembly.Domain.Manufacturers
 {
     public class MotorcycleManufacturers
     {

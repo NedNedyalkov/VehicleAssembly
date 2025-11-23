@@ -1,7 +1,8 @@
 ﻿using TireFittingShop.Abstractions;
 using TireFittingShop.Domain;
-using VehicleAssembly.Models.Manufacturers;
-using VehicleAssembly.Models.Vehicles;
+using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Vehicles;
+using VehicleAssembly.Factories;
 
 namespace TireFittingShop.Services
 {

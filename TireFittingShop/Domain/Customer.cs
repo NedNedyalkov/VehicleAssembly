@@ -1,4 +1,4 @@
-﻿using VehicleAssembly.Models.Vehicles;
+﻿using VehicleAssembly.Domain.Vehicles;
 
 namespace TireFittingShop.Domain
 {

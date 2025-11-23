@@ -28,11 +28,6 @@
 
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
-    <Using Include="VehicleAssembly" />
-    <Using Include="VehicleAssembly.Interfaces" />
-    <Using Include="VehicleAssembly.Models.Manufacturers" />
-    <Using Include="VehicleAssembly.Models.Tires" />
-    <Using Include="VehicleAssembly.Models.Vehicles" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-﻿using VehicleAssembly.Models.Manufacturers;
+﻿using VehicleAssembly.Domain.Manufacturers;
 
-namespace VehicleAssembly.Models.Vehicles
+namespace VehicleAssembly.Domain.Vehicles
 {
     public sealed class Motorcycle : Vehicle
     {

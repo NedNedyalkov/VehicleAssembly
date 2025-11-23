@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Vehicles;
 
 namespace VehicleAssembly.Tests.Tests
 {

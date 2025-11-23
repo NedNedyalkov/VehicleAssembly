@@ -1,4 +1,4 @@
-﻿namespace VehicleAssembly.Models.Tires
+﻿namespace VehicleAssembly.Domain.Tires
 {
     internal class SummerTire : Tire
     {

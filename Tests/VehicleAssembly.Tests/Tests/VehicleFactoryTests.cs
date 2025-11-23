@@ -1,6 +1,7 @@
-﻿using VehicleAssembly.Models.Manufacturers;
-using VehicleAssembly.Models.Tires;
-using VehicleAssembly.Models.Vehicles;
+﻿using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Tires;
+using VehicleAssembly.Domain.Vehicles;
+using VehicleAssembly.Factories;
 
 namespace VehicleAssembly.Tests.Tests
 {

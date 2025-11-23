@@ -1,5 +1,5 @@
-﻿using VehicleAssembly.Models.Manufacturers;
-using VehicleAssembly.Models.Vehicles;
+﻿using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Factories;
 
 namespace TireFittingShop.Tests.Tests
 {

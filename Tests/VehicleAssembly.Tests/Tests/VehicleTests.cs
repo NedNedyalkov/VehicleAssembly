@@ -1,5 +1,9 @@
 ﻿using System.Reflection;
 using VehicleAssembly.Tests.Utilities;
+using VehicleAssembly.Domain.Tires;
+using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Vehicles;
+using VehicleAssembly.Factories;
 
 namespace VehicleAssembly.Tests.Tests
 {

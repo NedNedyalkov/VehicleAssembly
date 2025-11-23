@@ -1,6 +1,6 @@
-﻿using VehicleAssembly.Interfaces;
+﻿using VehicleAssembly.Abstractions;
 
-namespace VehicleAssembly.Models.Tires
+namespace VehicleAssembly.Domain.Tires
 {
     internal abstract class Tire : ITire
     {
