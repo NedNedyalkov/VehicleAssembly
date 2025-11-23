@@ -11,6 +11,6 @@ namespace TireFittingShop.Services
             set => _startTime = DateTime.UtcNow - value;
         }
 
-        public Task DoWork(TimeSpan delay, CancellationToken token) => Task.Delay(delay, token);
+        public Task DoWork(TimeSpan delay, CancellationToken cancellationToken) => Task.Delay(delay, cancellationToken);
     }
 }

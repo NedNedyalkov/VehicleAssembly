@@ -105,6 +105,8 @@ namespace TireFittingShop.Simulation
         {
             for (int i = 0; i < totalCustomers; i++)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var customer = await customerProducer.ProduceCustomerAsync(cancellationToken);
                 waitingCustomers.Add(customer, cancellationToken);
             }
@@ -123,6 +125,8 @@ namespace TireFittingShop.Simulation
         {
             foreach (var customer in waitingCustomers.GetConsumingEnumerable(cancellationToken))
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 await mechanic.ChangeCustomerTiresAsync(customer, cancellationToken);
             }
         }
