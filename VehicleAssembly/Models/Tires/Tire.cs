@@ -2,13 +2,18 @@
 
 namespace VehicleAssembly.Models.Tires
 {
-    internal abstract class Tire(float pressureBar) : ITire
+    internal abstract class Tire : ITire
     {
-        // TODO: Add some validation for value.
         /// <summary>
         /// Recommended pressure of the tire in bars
         /// </summary>
-        public float PressureBar { get; set; } = pressureBar;
+        public float PressureBar { get; set; }
+
+        public Tire(float pressureBar)
+        {
+            ArgumentOutOfRangeException.ThrowIfNegative(pressureBar, nameof(pressureBar));
+            PressureBar = pressureBar;
+        }
 
         public override bool Equals(object? obj)
             => obj is Tire other

@@ -1,16 +1,24 @@
 ﻿namespace VehicleAssembly.Models.Tires
 {
-    internal class WinterTire(float minTemperatureC, float thicknessCm, float pressureBar) : Tire(pressureBar)
+    internal class WinterTire : Tire
     {
-        // TODO: Add some validation for value.
         /// <summary>
         /// Minimum operating temperature of the tire in Celsius degrees
         /// </summary>
-        public float MinTemperatureC { get; set; } = minTemperatureC;
+        public float MinTemperatureC { get; set; }
         /// <summary>
         /// Thickness of the winter tire in centimeters
         /// </summary>
-        public float ThicknessCm { get; set; } = thicknessCm;
+        public float ThicknessCm { get; set; }
+
+        public WinterTire(float minTemperatureC, float thicknessCm, float pressureBar) : base(pressureBar)
+        {
+            ArgumentOutOfRangeException.ThrowIfNegative(thicknessCm, nameof(thicknessCm));
+            ArgumentOutOfRangeException.ThrowIfGreaterThan(minTemperatureC, 0, nameof(minTemperatureC));
+
+            MinTemperatureC = minTemperatureC;
+            ThicknessCm = thicknessCm;
+        }
 
         public override string ToString() => $"Winter Tire: MinTemperature = {MinTemperatureC} °C, Thickness = {ThicknessCm} cm, Pressure={PressureBar} bar";
         public override bool Equals(object? obj)
