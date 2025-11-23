@@ -4,12 +4,8 @@ namespace TireFittingShop.Services
 {
     public sealed class TaskDelayWorkSimulator : IWorkSimulator
     {
-        private DateTime _startTime = DateTime.UtcNow;
-        public TimeSpan WorkedDuration
-        {
-            get => DateTime.UtcNow - _startTime;
-            set => _startTime = DateTime.UtcNow - value;
-        }
+        private readonly DateTime _startTime = DateTime.UtcNow;
+        public TimeSpan WorkedDuration => DateTime.UtcNow - _startTime;
 
         public Task DoWork(TimeSpan delay, CancellationToken cancellationToken) => Task.Delay(delay, cancellationToken);
     }
