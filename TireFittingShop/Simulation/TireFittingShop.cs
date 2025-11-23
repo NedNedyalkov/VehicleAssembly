@@ -1,40 +1,53 @@
 ﻿using System.Collections.Concurrent;
-using TireFittingShop.Abstractions;
 using TireFittingShop.Domain;
 
 namespace TireFittingShop.Simulation
 {
+    /// <summary>
+    /// Orchestrates a tire fitting shop simulation with concurrent customer arrivals and mechanic processing.
+    /// </summary>
+    /// <remarks>
+    /// This class implements a producer-consumer pattern where customers arrive at random intervals
+    /// and are processed by multiple mechanics working concurrently. The simulation continues until
+    /// all customers have been serviced or a cancellation is requested.
+    /// </remarks>
+    /// <param name="config">The configuration settings for the simulation.</param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="config"/> is null.</exception>
     public class TireFittingShop(TireFittingShopConfiguration config)
     {
+        private readonly TireFittingShopConfiguration _config = config ?? throw new ArgumentNullException(nameof(config));
+
         /// <summary>
-        /// Runs the full tire fitting simulation.
-        /// Spawns a producer that creates customers and multiple mechanics processing them concurrently.
+        /// Runs the tire fitting shop simulation asynchronously.
         /// </summary>
+        /// <param name="cancellationToken">Token to cancel the simulation.</param>
+        /// <returns>A task that completes when all customers have been processed or cancellation is requested.</returns>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is canceled via <paramref name="cancellationToken"/>.</exception>
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             using var waitingCustomers = new BlockingCollection<Customer>();
-            var sharedWorkSimulator = config.WorkSimulatorFactory();
-            var logger = config.LoggerFactory();
+            var sharedWorkSimulator = _config.WorkSimulatorFactory();
+            var logger = _config.LoggerFactory();
 
             var customerGenerator = new CustomerProducer(
-                config.MinCustomerArrivalTime,
-                config.MaxCustomerArrivalTime,
-                config.RandomProviderFactory(),
+                _config.MinCustomerArrivalTime,
+                _config.MaxCustomerArrivalTime,
+                _config.RandomProviderFactory(),
                 sharedWorkSimulator,
                 logger,
-                config.CustomerGeneratorFactory());
+                _config.CustomerGeneratorFactory());
 
             // Start customer producer
-            var producerTask = Task.Run(() => ProduceCustomersAsync(waitingCustomers, config.TotalCustomers, customerGenerator, cancellationToken), cancellationToken);
+            var producerTask = Task.Run(() => ProduceCustomersAsync(waitingCustomers, _config.TotalCustomers, customerGenerator, cancellationToken), cancellationToken);
 
             // Start mechanics
-            var mechanicTasks = Enumerable.Range(0, config.ConcurrentMechanics)
+            var mechanicTasks = Enumerable.Range(0, _config.ConcurrentMechanics)
                 .Select(_ => Task.Run(async () =>
                 {
                     var mechanic = new Mechanic(
-                        config.MinChangeTireTime,
-                        config.MaxChangeTireTime,
-                        config.RandomProviderFactory(),
+                        _config.MinChangeTireTime,
+                        _config.MaxChangeTireTime,
+                        _config.RandomProviderFactory(),
                         sharedWorkSimulator,
                         logger);
                     await MechanicWorkLoopAsync(waitingCustomers, mechanic, cancellationToken);
