@@ -1,4 +1,4 @@
-﻿namespace TireFittingShop.Abstractions
+﻿namespace VehicleAssembly.Abstractions
 {
     /// <summary>
     /// Defines a generic logging interface for messages generated during simulation.

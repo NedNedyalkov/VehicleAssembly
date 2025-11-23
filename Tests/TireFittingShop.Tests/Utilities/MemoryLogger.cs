@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using TireFittingShop.Abstractions;
+using VehicleAssembly.Abstractions;
 
 namespace TireFittingShop.Tests.Utilities
 {
