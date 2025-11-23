@@ -16,7 +16,7 @@ namespace TireFittingShop.Simulation
         public Func<ICustomerFactory> CustomerGeneratorFactory { get; }
         public Func<ILogger> LoggerFactory { get; }
         public Func<IRandomProvider> RandomProviderFactory { get; }
-        public Func<IWorkSimulator> DelayProviderFactory { get; }
+        public Func<IWorkSimulator> WorkSimulatorFactory { get; }
 
         public TireFittingShop(
             int totalCustomers,
@@ -28,7 +28,7 @@ namespace TireFittingShop.Simulation
             Func<ICustomerFactory>? customerGeneratorFactory = null,
             Func<ILogger>? loggerFactory = null,
             Func<IRandomProvider>? randomProviderFactory = null,
-            Func<IWorkSimulator>? delayProviderFactory = null)
+            Func<IWorkSimulator>? workSimulatorFactory = null)
         {
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(totalCustomers);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(concurrentMechanics);
@@ -41,7 +41,7 @@ namespace TireFittingShop.Simulation
             ArgumentException.ThrowIfNullOrEmpty(customerGeneratorFactory?.ToString(), nameof(customerGeneratorFactory));
             ArgumentException.ThrowIfNullOrEmpty(loggerFactory?.ToString(), nameof(loggerFactory));
             ArgumentException.ThrowIfNullOrEmpty(randomProviderFactory?.ToString(), nameof(randomProviderFactory));
-            ArgumentException.ThrowIfNullOrEmpty(delayProviderFactory?.ToString(), nameof(delayProviderFactory));
+            ArgumentException.ThrowIfNullOrEmpty(workSimulatorFactory?.ToString(), nameof(workSimulatorFactory));
 
             TotalCustomers = totalCustomers;
             ConcurrentMechanics = concurrentMechanics;
@@ -50,7 +50,7 @@ namespace TireFittingShop.Simulation
             MinChangeTireTime = minChange;
             MaxChangeTireTime = maxChange;
             RandomProviderFactory = randomProviderFactory;
-            DelayProviderFactory = delayProviderFactory;
+            WorkSimulatorFactory = workSimulatorFactory;
             LoggerFactory = loggerFactory;
             CustomerGeneratorFactory = customerGeneratorFactory;
         }
@@ -63,14 +63,14 @@ namespace TireFittingShop.Simulation
         {
             using var waitingCustomers = new BlockingCollection<Customer>();
             var randomProvider = RandomProviderFactory();
-            var delayProvider = DelayProviderFactory();
+            var workSimulator = WorkSimulatorFactory();
             var logger = LoggerFactory();
 
             var customerGenerator = new CustomerProducer(
                 MinCustomerArrivalTime,
                 MaxCustomerArrivalTime,
                 randomProvider,
-                delayProvider,
+                workSimulator,
                 logger,
                 CustomerGeneratorFactory());
 
@@ -85,7 +85,7 @@ namespace TireFittingShop.Simulation
                         MinChangeTireTime,
                         MaxChangeTireTime,
                         randomProvider,
-                        delayProvider,
+                        workSimulator,
                         logger);
                     await MechanicWorkLoopAsync(waitingCustomers, mechanic, cancellationToken);
                 }, cancellationToken));

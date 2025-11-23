@@ -102,7 +102,7 @@ namespace TireFittingShop.Tests.Tests
                 customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider(seed: rnd.Next())),
                 loggerFactory: () => logger = new MemoryLogger(new RealTimeProvider()),
                 randomProviderFactory: () => new SystemRandomProvider(seed: rnd.Next()),
-                delayProviderFactory: () => new TaskDelayWorkSimulator()
+                workSimulatorFactory: () => new TaskDelayWorkSimulator()
             );
 
             Debug.WriteLine($"Starting simulation with {customers} customers and {mechanics} mechanics.");

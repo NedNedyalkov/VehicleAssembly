@@ -23,7 +23,7 @@ namespace TireFittingShop.Tests.Tests
                 customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider(seed: rnd.Next())),
                 loggerFactory: () => new MemoryLogger(new RealTimeProvider()),
                 randomProviderFactory: () => new SystemRandomProvider(seed: rnd.Next()),
-                delayProviderFactory: () => new TaskDelayWorkSimulator()
+                workSimulatorFactory: () => new TaskDelayWorkSimulator()
             );
 
             using var cts = new CancellationTokenSource();
