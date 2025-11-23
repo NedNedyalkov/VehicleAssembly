@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireFittingShop", "TireFitt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TireFittingShop.Tests", "Tests\TireFittingShop.Tests\TireFittingShop.Tests.csproj", "{EF64693B-0E33-4EF0-BB3E-81E10E84C932}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{943550E1-CA20-489B-8944-68428B468487}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{EF64693B-0E33-4EF0-BB3E-81E10E84C932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF64693B-0E33-4EF0-BB3E-81E10E84C932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF64693B-0E33-4EF0-BB3E-81E10E84C932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943550E1-CA20-489B-8944-68428B468487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943550E1-CA20-489B-8944-68428B468487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943550E1-CA20-489B-8944-68428B468487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943550E1-CA20-489B-8944-68428B468487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
