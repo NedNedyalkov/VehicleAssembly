@@ -1,9 +1,5 @@
 ﻿namespace VehicleAssembly.Tests.Utilities
 {
-    internal class Extensions
-    {
-    }
-
     public static class StringAssertExtensions
     {
         public static void ShouldContain(this string actual, string expected)
