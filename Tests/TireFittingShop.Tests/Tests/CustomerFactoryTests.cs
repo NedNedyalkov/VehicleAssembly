@@ -44,7 +44,7 @@ namespace TireFittingShop.Tests.Tests
             Assert.IsInstanceOfType<Customer>(customer1);
             Assert.IsInstanceOfType<Customer>(customer2);
             Assert.AreNotEqual(customer1.Id, customer2.Id);
-            Assert.AreSame(customer1.Vehicle, customer2.Vehicle);
+            Assert.AreNotSame(customer1.Vehicle, customer2.Vehicle);
             Assert.AreEqual(customer1.Vehicle, customer2.Vehicle);
         }
     }

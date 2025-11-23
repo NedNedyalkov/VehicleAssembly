@@ -63,14 +63,14 @@ namespace VehicleAssembly.Tests.Tests
             var car = new Car(CarManufacturers.Honda.Value);
 
             Assert.IsInstanceOfType<SummerTire>(car.Tire);
-            Assert.AreEqual(new SummerTire(), car.Tire);
+            Assert.AreSame(SummerTire.Default.Value, car.Tire);
         }
 
         [TestMethod]
         public void Vehicle_CreatingACarWithSpecificSummerTires_HasTheExactSummerTires()
         {
-            var expectedSummerTire = new SummerTire(maxTemperatureC: 44, pressureBar: 2.2f);
-            var car = new Car(CarManufacturers.Honda.Value, expectedSummerTire);
+            TireFactory.TryCreateSummerTire(pressureBar: 2.2f, maxTemperatureC: 44, out var expectedSummerTire);
+            var car = new Car(CarManufacturers.Honda.Value, expectedSummerTire!);
 
             Assert.IsInstanceOfType<SummerTire>(car.Tire);
             Assert.AreEqual(expectedSummerTire, car.Tire);
