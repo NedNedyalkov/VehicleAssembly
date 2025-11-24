@@ -8,12 +8,7 @@ namespace VehicleAssembly.Factories
         {
             try
             {
-                manufacturer = carManufacturer switch
-                {
-                    CarManufacturersEnum.Honda => CarManufacturers.Honda.Value,
-                    CarManufacturersEnum.Toyota => CarManufacturers.Toyota.Value,
-                    _ => null
-                };
+                Manufacturers.CarManufacturers.TryGetValue(carManufacturer, out manufacturer);
             }
             catch
             {
@@ -26,12 +21,7 @@ namespace VehicleAssembly.Factories
         {
             try
             {
-                manufacturer = motorcycleManufacturer switch
-                {
-                    MotorcycleManufacturersEnum.Honda => MotorcycleManufacturers.Honda.Value,
-                    MotorcycleManufacturersEnum.Ktm => MotorcycleManufacturers.Ktm.Value,
-                    _ => null
-                };
+                Manufacturers.MotorcycleManufacturers.TryGetValue(motorcycleManufacturer, out manufacturer);
             }
             catch
             {

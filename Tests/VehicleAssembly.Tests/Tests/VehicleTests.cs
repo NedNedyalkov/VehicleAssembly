@@ -14,7 +14,7 @@ namespace VehicleAssembly.Tests.Tests
         public void Vehicle_Cars_ShowInformation()
         {
             var logger = new MemoryLogger();
-            var car = new Car(CarManufacturers.Honda.Value, logger);
+            var car = new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Honda], logger);
 
             car.ShowInformation();
 
@@ -27,7 +27,7 @@ namespace VehicleAssembly.Tests.Tests
         public void Vehicle_Motorcycles_ShowInformation()
         {
             var logger = new MemoryLogger();
-            var motorcycle = new Motorcycle(MotorcycleManufacturers.Honda.Value, logger);
+            var motorcycle = new Motorcycle(Manufacturers.MotorcycleManufacturers[MotorcycleManufacturersEnum.Honda], logger);
 
             motorcycle.ShowInformation();
 
@@ -38,7 +38,7 @@ namespace VehicleAssembly.Tests.Tests
         public void Vehicle_ShowInformationReflectsReplacedTires()
         {
             var logger = new MemoryLogger();
-            var car = new Car(CarManufacturers.Honda.Value, logger);
+            var car = new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Honda], logger);
 
             car.ReplaceTires(new WinterTires(-10, 3.1f, 2.0f));
             car.ShowInformation();
@@ -50,7 +50,7 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void Vehicle_CreatingADefaultCar_HasDefaultSummerTires()
         {
-            var car = new Car(CarManufacturers.Honda.Value);
+            var car = new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Honda]);
 
             Assert.IsInstanceOfType<SummerTires>(car.Tires);
             Assert.AreSame(SummerTires.Default.Value, car.Tires);
@@ -60,7 +60,7 @@ namespace VehicleAssembly.Tests.Tests
         public void Vehicle_CreatingACarWithSpecificSummerTires_HasTheExactSummerTires()
         {
             TiresFactory.TryCreateSummerTires(pressureBar: 2.2f, maxTemperatureC: 44, out var expectedSummerTires);
-            var car = new Car(CarManufacturers.Honda.Value, expectedSummerTires!);
+            var car = new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Honda], expectedSummerTires!);
 
             Assert.IsInstanceOfType<SummerTires>(car.Tires);
             Assert.AreEqual(expectedSummerTires, car.Tires);
@@ -69,7 +69,7 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void Vehicle_ReplaceCarTires_WorksCorrectly()
         {
-            var car = new Car(CarManufacturers.Toyota.Value);
+            var car = new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Toyota]);
             var expectedWinterTires = new WinterTires(minTemperatureC: -20, thicknessCm: 3.2f, pressureBar: 2.3f);
 
             car.ReplaceTires(expectedWinterTires);
@@ -88,21 +88,21 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void Vehicle_CarWithNullTires_ThrowsArgumentNullException()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new Car(CarManufacturers.Honda.Value, tires: null!));
+            Assert.ThrowsException<ArgumentNullException>(() => new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Honda], tires: null!));
         }
 
         [TestMethod]
         public void Vehicle_ToString_WorksCorrectly()
         {
-            var car = new Car(CarManufacturers.Honda.Value);
-            var motorcycle = new Motorcycle(MotorcycleManufacturers.Honda.Value);
+            var car = new Car(Manufacturers.CarManufacturers[CarManufacturersEnum.Honda]);
+            var motorcycle = new Motorcycle(Manufacturers.MotorcycleManufacturers[MotorcycleManufacturersEnum.KTM]);
 
             var carString = car.ToString();
             var motorcycleString = motorcycle.ToString();
 
             carString.ShouldContain("Car: Honda");
             carString.ShouldContain("Summer Tires");
-            motorcycleString.ShouldContain("Motorcycle: Honda");
+            motorcycleString.ShouldContain("Motorcycle: KTM");
         }
 
         [TestMethod]

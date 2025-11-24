@@ -1,23 +1,17 @@
 ﻿namespace VehicleAssembly.Domain.Manufacturers
 {
-    internal sealed class Honda : Manufacturer
+    public static class Manufacturers
     {
-        private Honda() { }
-        internal static Lazy<Honda> Instance { get; } = new(() => new Honda());
-        public override string ToString() => nameof(Honda);
-    }
+        public static Dictionary<CarManufacturersEnum, Manufacturer> CarManufacturers { get; } = [];
+        public static Dictionary<MotorcycleManufacturersEnum, Manufacturer> MotorcycleManufacturers { get; } = [];
 
-    internal sealed class Toyota : Manufacturer
-    {
-        private Toyota() { }
-        internal static Lazy<Toyota> Instance { get; } = new(() => new Toyota());
-        public override string ToString() => nameof(Toyota);
-    }
+        static Manufacturers()
+        {
+            foreach (var carManufacturer in Enum.GetValues<CarManufacturersEnum>())
+                CarManufacturers[carManufacturer] = Manufacturer.Create(carManufacturer);
 
-    internal sealed class KTM : Manufacturer
-    {
-        private KTM() { }
-        internal static Lazy<KTM> Instance { get; } = new(() => new KTM());
-        public override string ToString() => nameof(KTM);
+            foreach (var motorcycleManufacturer in Enum.GetValues<MotorcycleManufacturersEnum>())
+                MotorcycleManufacturers[motorcycleManufacturer] = Manufacturer.Create(motorcycleManufacturer);
+        }
     }
 }

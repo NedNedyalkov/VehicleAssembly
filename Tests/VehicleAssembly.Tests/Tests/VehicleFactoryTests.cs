@@ -27,7 +27,7 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void VehicleFactory_CreatingMotorcycle_IsSuccessfull()
         {
-            var result = VehicleFactory.TryCreateMotorcycle(manufacturer: MotorcycleManufacturersEnum.Ktm, out var motorcycle);
+            var result = VehicleFactory.TryCreateMotorcycle(manufacturer: MotorcycleManufacturersEnum.KTM, out var motorcycle);
             Assert.IsTrue(result);
             Assert.IsInstanceOfType<Motorcycle>(motorcycle);
         }

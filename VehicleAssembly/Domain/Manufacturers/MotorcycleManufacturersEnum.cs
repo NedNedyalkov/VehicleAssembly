@@ -3,6 +3,6 @@
     public enum MotorcycleManufacturersEnum
     {
         Honda,
-        Ktm,
+        KTM,
     }
 }

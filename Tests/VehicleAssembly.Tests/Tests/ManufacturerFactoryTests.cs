@@ -21,7 +21,7 @@ namespace VehicleAssembly.Tests.Tests
 
         [DataTestMethod]
         [DataRow(MotorcycleManufacturersEnum.Honda)]
-        [DataRow(MotorcycleManufacturersEnum.Ktm)]
+        [DataRow(MotorcycleManufacturersEnum.KTM)]
         public void TryCreateMotorcycleManufacturer_ValidManufacturer_ReturnsTrueAndManufacturer(MotorcycleManufacturersEnum motorcycleManufacturer)
         {
             var result = ManufacturerFactory.TryCreateMotorcycleManufacturer(motorcycleManufacturer, out var manufacturer);
