@@ -70,24 +70,25 @@ namespace ConsoleApp
 
             var tireFittingShop = new TireFittingShop.Simulation.TireFittingShop(config);
 
-            var consoleTask = Task.Run(() =>
+            var consoleTask = Task.Run(async () =>
             {
                 while (true)
                 {
                     cts.Token.ThrowIfCancellationRequested();
                     consoleCts.Token.ThrowIfCancellationRequested();
 
-                    if (!Console.KeyAvailable)
+                    if (Console.KeyAvailable)
                     {
-                        Thread.Sleep(20);
-                    }
-                    else if (!string.IsNullOrEmpty(Console.ReadKey(intercept: true).Key.ToString()))
-                    {
+                        Console.ReadKey(true); // Clear the key
                         cts.Cancel();
                         break;
                     }
+                    else
+                    {
+                        await Task.Delay(50, consoleCts.Token);
+                    }
                 }
-            });
+            }, cts.Token);
 
             try
             {
