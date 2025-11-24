@@ -4,11 +4,11 @@ using VehicleAssembly.Abstractions;
 
 namespace VehicleAssembly.Tests.Utilities
 {
-    public class MemoryLogger : ILogger
+    public class MemoryLogger : IVehicleShowInformationHandler
     {
         public StringBuilder Log { get; } = new();
 
-        public void WriteLine(string message)
+        public void ShowInformation(string message)
         {
             Debug.WriteLine(message);
             Log.AppendLine(message);

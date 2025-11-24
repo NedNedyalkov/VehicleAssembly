@@ -3,12 +3,12 @@
     /// <summary>
     /// Defines a generic logging interface for messages generated during simulation.
     /// </summary>
-    internal interface ILogger
+    internal interface IVehicleShowInformationHandler
     {
         /// <summary>
-        /// Writes a message to the log or output.
+        /// Displays information about the vehicle.
         /// </summary>
-        /// <param name="message">The message to log.</param>
-        void WriteLine(string message);
+        /// <param name="information">The information to show</param>
+        void ShowInformation(string information);
     }
 }
