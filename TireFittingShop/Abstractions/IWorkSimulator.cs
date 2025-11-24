@@ -17,13 +17,5 @@
         /// include work that completed before cancellation.
         /// </remarks>
         Task DoWork(TimeSpan workDuration, CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Gets the total accumulated work duration completed by this simulator.
-        /// </summary>
-        /// <remarks>
-        /// Will include the actual time spent, which will likely be longer than the sum of requested work durations
-        /// </remarks>
-        TimeSpan WorkedDuration { get; }
     }
 }
