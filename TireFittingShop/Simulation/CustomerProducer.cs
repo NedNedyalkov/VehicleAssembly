@@ -19,7 +19,7 @@ namespace TireFittingShop.Simulation
             await delayProvider.DoWork(waitForCustomer, cancellationToken);
 
             var customer = customerGenerator.Create();
-            logger.WriteLine($"Customer {customer.Id} has arrived. Driving a car from {customer.Vehicle.Manufacturer}...");
+            logger.WriteLine($"Customer {customer.Id} has arrived. Driving a {customer.Vehicle.GetInformation()}...");
 
             return customer;
         }

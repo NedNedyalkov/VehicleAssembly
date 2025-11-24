@@ -16,5 +16,6 @@ namespace VehicleAssembly.Domain.Vehicles
         internal IVehicleShowInformationHandler Logger { get; }
 
         public abstract void ShowInformation();
+        public abstract string GetInformation();
     }
 }

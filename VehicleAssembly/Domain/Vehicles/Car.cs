@@ -17,7 +17,8 @@ namespace VehicleAssembly.Domain.Vehicles
         {
         }
 
-        public override void ShowInformation() => Logger.ShowInformation($"Driving a car from {Manufacturer} with {Tires}");
+        public override void ShowInformation() => Logger.ShowInformation($"Driving a {GetInformation()}");
+        public override string GetInformation() => $"Car from {Manufacturer} with {Tires}";
         public override string ToString() => $"Car: {Manufacturer}, Tire: {Tires}";
         public void ReplaceTires(Tires.Tires newTires) => Tires = newTires;
     }

@@ -19,7 +19,7 @@ namespace VehicleAssembly.Tests.Tests
             car.ShowInformation();
 
             var log = logger.Log.ToString();
-            log.ShouldContain("Driving a car from Honda");
+            log.ShouldContain("Driving a Car from Honda");
             log.ShouldContain("Summer Tire");
         }
 
@@ -31,7 +31,7 @@ namespace VehicleAssembly.Tests.Tests
 
             motorcycle.ShowInformation();
 
-            logger.Log.ToString().ShouldContain("Driving a motorcycle from Honda");
+            logger.Log.ToString().ShouldContain("Driving a Motorcycle from Honda");
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace VehicleAssembly.Tests.Tests
             car.ReplaceTires(new WinterTires(-10, 3.1f, 2.0f));
             car.ShowInformation();
 
-            logger.Log.ToString().ShouldContain("Winter Tire: MinTemperature = -10 °C, Thickness = 3.1 cm, Pressure=2 bar");
+            logger.Log.ToString().ShouldContain("Winter Tires: MinTemperature = -10 °C, Thickness = 3.1 cm, Pressure=2 bar");
         }
 
 

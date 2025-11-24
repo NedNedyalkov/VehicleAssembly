@@ -112,7 +112,7 @@ namespace TireFittingShop.Tests.Tests
 
             Debug.WriteLine($"Starting simulation with {customers} customers and {mechanics} mechanics.");
             Debug.WriteLine($"Arrival time range: {minArrivalTimeRangeSec}s - {maxArrivalTimeRangeSec}s.");
-            Debug.WriteLine($"Tire change time range: {minChangeTireTimeRangeSec}s - {maxChangeTireTimeRangeSec}s.");
+            Debug.WriteLine($"Tires change time range: {minChangeTireTimeRangeSec}s - {maxChangeTireTimeRangeSec}s.");
 
             tireFittingShop.SimulationStarted += timeProvider.Reset;
             await tireFittingShop.RunAsync(cancellationToken: CancellationToken.None);
