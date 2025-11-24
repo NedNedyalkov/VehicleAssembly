@@ -20,7 +20,7 @@ namespace VehicleAssembly.Tests.Tests
 
             var log = logger.Log.ToString();
             log.ShouldContain("Driving a Car from Honda");
-            log.ShouldContain("Summer Tire");
+            log.ShouldContain("Summer Tires");
         }
 
         [TestMethod]
@@ -59,23 +59,23 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void Vehicle_CreatingACarWithSpecificSummerTires_HasTheExactSummerTires()
         {
-            TireFactory.TryCreateSummerTire(pressureBar: 2.2f, maxTemperatureC: 44, out var expectedSummerTire);
-            var car = new Car(CarManufacturers.Honda.Value, expectedSummerTire!);
+            TiresFactory.TryCreateSummerTires(pressureBar: 2.2f, maxTemperatureC: 44, out var expectedSummerTires);
+            var car = new Car(CarManufacturers.Honda.Value, expectedSummerTires!);
 
             Assert.IsInstanceOfType<SummerTires>(car.Tires);
-            Assert.AreEqual(expectedSummerTire, car.Tires);
+            Assert.AreEqual(expectedSummerTires, car.Tires);
         }
 
         [TestMethod]
         public void Vehicle_ReplaceCarTires_WorksCorrectly()
         {
             var car = new Car(CarManufacturers.Toyota.Value);
-            var expectedWinterTire = new WinterTires(minTemperatureC: -20, thicknessCm: 3.2f, pressureBar: 2.3f);
+            var expectedWinterTires = new WinterTires(minTemperatureC: -20, thicknessCm: 3.2f, pressureBar: 2.3f);
 
-            car.ReplaceTires(expectedWinterTire);
+            car.ReplaceTires(expectedWinterTires);
 
             Assert.IsInstanceOfType<WinterTires>(car.Tires);
-            Assert.AreEqual(expectedWinterTire, car.Tires);
+            Assert.AreEqual(expectedWinterTires, car.Tires);
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace VehicleAssembly.Tests.Tests
         }
 
         [TestMethod]
-        public void Vehicle_CarWithNullTire_ThrowsArgumentNullException()
+        public void Vehicle_CarWithNullTires_ThrowsArgumentNullException()
         {
             Assert.ThrowsException<ArgumentNullException>(() => new Car(CarManufacturers.Honda.Value, tires: null!));
         }
@@ -101,7 +101,7 @@ namespace VehicleAssembly.Tests.Tests
             var motorcycleString = motorcycle.ToString();
 
             carString.ShouldContain("Car: Honda");
-            carString.ShouldContain("Summer Tire");
+            carString.ShouldContain("Summer Tires");
             motorcycleString.ShouldContain("Motorcycle: Honda");
         }
 

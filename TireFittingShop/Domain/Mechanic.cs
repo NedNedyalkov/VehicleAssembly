@@ -3,14 +3,14 @@ using TireFittingShop.Simulation;
 namespace TireFittingShop.Domain
 {
     internal class Mechanic(
-        TimeSpan minChangeTireTime,
-        TimeSpan maxChangeTireTime,
+        TimeSpan minChangeTiresTime,
+        TimeSpan maxChangeTiresTime,
         IRandomProvider randomProvider,
         IWorkSimulator delayProvider,
         ILogger logger)
         : CustomerConsumer(
-            minChangeTireTime,
-            maxChangeTireTime,
+            minChangeTiresTime,
+            maxChangeTiresTime,
             randomProvider,
             delayProvider,
             logger)

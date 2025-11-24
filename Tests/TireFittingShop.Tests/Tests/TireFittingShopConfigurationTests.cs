@@ -104,8 +104,8 @@ namespace TireFittingShop.Tests.Tests
             int mechanics,
             double minArrivalTimeRangeSec,
             double maxArrivalTimeRangeSec,
-            double minChangeTireTimeRangeSec,
-            double maxChangeTireTimeRangeSec,
+            double minChangeTiresTimeRangeSec,
+            double maxChangeTiresTimeRangeSec,
             string expectedExceptionParameterName)
         {
             var ex = Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
@@ -114,8 +114,8 @@ namespace TireFittingShop.Tests.Tests
                     concurrentMechanics: mechanics,
                     minArrival: TimeSpan.FromSeconds(minArrivalTimeRangeSec),
                     maxArrival: TimeSpan.FromSeconds(maxArrivalTimeRangeSec),
-                    minChange: TimeSpan.FromSeconds(minChangeTireTimeRangeSec),
-                    maxChange: TimeSpan.FromSeconds(maxChangeTireTimeRangeSec),
+                    minChange: TimeSpan.FromSeconds(minChangeTiresTimeRangeSec),
+                    maxChange: TimeSpan.FromSeconds(maxChangeTiresTimeRangeSec),
                     customerGeneratorFactory: CustomerGeneratorFactory,
                     loggerFactory: LoggerFactory,
                     randomProviderFactory: RandomProviderFactory,

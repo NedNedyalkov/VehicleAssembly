@@ -65,8 +65,8 @@ namespace TireFittingShop.Tests.Tests
             var logger = new MemoryLogger(new RealTimeProvider());
 
             var customerConsumer = new Simulation.CustomerConsumer(
-                minChangeTireTime: TimeSpan.FromSeconds(2),
-                maxChangeTireTime: TimeSpan.FromSeconds(5),
+                minChangeTiresTime: TimeSpan.FromSeconds(2),
+                maxChangeTiresTime: TimeSpan.FromSeconds(5),
                 randomProvider: randomProvider,
                 delayProvider: delaySimulator,
                 logger: logger

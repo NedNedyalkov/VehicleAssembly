@@ -15,8 +15,8 @@ namespace TireFittingShop.Simulation
         public int ConcurrentMechanics { get; }
         public TimeSpan MinCustomerArrivalTime { get; }
         public TimeSpan MaxCustomerArrivalTime { get; }
-        public TimeSpan MinChangeTireTime { get; }
-        public TimeSpan MaxChangeTireTime { get; }
+        public TimeSpan MinChangeTiresTime { get; }
+        public TimeSpan MaxChangeTiresTime { get; }
         public Func<ICustomerFactory> CustomerGeneratorFactory { get; }
         public Func<ILogger> LoggerFactory { get; }
         public Func<IRandomProvider> RandomProviderFactory { get; }
@@ -71,8 +71,8 @@ namespace TireFittingShop.Simulation
             ConcurrentMechanics = concurrentMechanics;
             MinCustomerArrivalTime = minArrival;
             MaxCustomerArrivalTime = maxArrival;
-            MinChangeTireTime = minChange;
-            MaxChangeTireTime = maxChange;
+            MinChangeTiresTime = minChange;
+            MaxChangeTiresTime = maxChange;
             RandomProviderFactory = randomProviderFactory;
             WorkSimulatorFactory = workSimulatorFactory;
             LoggerFactory = loggerFactory;

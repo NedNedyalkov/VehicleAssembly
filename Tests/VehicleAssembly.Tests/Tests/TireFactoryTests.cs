@@ -16,9 +16,9 @@ namespace VehicleAssembly.Tests.Tests
         private const float invalidThicknessCm = -2.0f;
 
         [TestMethod]
-        public void TireFactory_CreateSummerTire_ReturnsASummerTire()
+        public void TireFactory_CreateSummerTires_ReturnsSummerTires()
         {
-            var result = TireFactory.TryCreateSummerTire(validPressureBar, validMaxTemperatureC, out var tire);
+            var result = TiresFactory.TryCreateSummerTires(validPressureBar, validMaxTemperatureC, out var tire);
 
             Assert.IsTrue(result);
             Assert.IsNotNull(tire);
@@ -26,9 +26,9 @@ namespace VehicleAssembly.Tests.Tests
         }
 
         [TestMethod]
-        public void TireFactory_CreateWinterTire_ReturnsAWinterTire()
+        public void TireFactory_CreateWinterTires_ReturnsWinterTires()
         {
-            var result = TireFactory.TryCreateWinterTire(validPressureBar, validMinTemperatureC, validThicknessCm, out var tire);
+            var result = TiresFactory.TryCreateWinterTires(validPressureBar, validMinTemperatureC, validThicknessCm, out var tire);
 
             Assert.IsTrue(result);
             Assert.IsNotNull(tire);
@@ -36,39 +36,39 @@ namespace VehicleAssembly.Tests.Tests
         }
 
         [TestMethod]
-        public void TireFactory_CreateTiresWithNegativePressure_ReturnsFalse()
+        public void TiresFactory_CreateTiresWithNegativePressure_ReturnsFalse()
         {
-            var summerResult = TireFactory.TryCreateSummerTire(invalidPressureBar, validMaxTemperatureC, out var summerTire);
-            var winterResult = TireFactory.TryCreateWinterTire(invalidPressureBar, validMinTemperatureC, validThicknessCm, out var winterTire);
+            var summerResult = TiresFactory.TryCreateSummerTires(invalidPressureBar, validMaxTemperatureC, out var summerTires);
+            var winterResult = TiresFactory.TryCreateWinterTires(invalidPressureBar, validMinTemperatureC, validThicknessCm, out var winterTires);
 
             Assert.IsFalse(summerResult);
             Assert.IsFalse(winterResult);
-            Assert.IsNull(summerTire);
-            Assert.IsNull(winterTire);
+            Assert.IsNull(summerTires);
+            Assert.IsNull(winterTires);
         }
 
         [TestMethod]
-        public void TireFactory_CreateSummerTireWithNegativeMaxTemperature_ReturnsFalse()
+        public void TireFactory_CreateSummerTiresWithNegativeMaxTemperature_ReturnsFalse()
         {
-            var result = TireFactory.TryCreateSummerTire(validPressureBar, invalidMaxTemperatureC, out var tire);
+            var result = TiresFactory.TryCreateSummerTires(validPressureBar, invalidMaxTemperatureC, out var tire);
 
             Assert.IsFalse(result);
             Assert.IsNull(tire);
         }
 
         [TestMethod]
-        public void TireFactory_CreateWinterTireWithPositiveMinTemperature_ReturnsFalse()
+        public void TireFactory_CreateWinterTiresWithPositiveMinTemperature_ReturnsFalse()
         {
-            var result = TireFactory.TryCreateWinterTire(validPressureBar, invalidMinTemperatureC, validThicknessCm, out var tire);
+            var result = TiresFactory.TryCreateWinterTires(validPressureBar, invalidMinTemperatureC, validThicknessCm, out var tire);
 
             Assert.IsFalse(result);
             Assert.IsNull(tire);
         }
 
         [TestMethod]
-        public void TireFactory_CreateWinterTireWithNegativeThickness_ReturnsFalse()
+        public void TireFactory_CreateWinterTiresWithNegativeThickness_ReturnsFalse()
         {
-            var result = TireFactory.TryCreateWinterTire(validPressureBar, validMinTemperatureC, invalidThicknessCm, out var tire);
+            var result = TiresFactory.TryCreateWinterTires(validPressureBar, validMinTemperatureC, invalidThicknessCm, out var tire);
 
             Assert.IsFalse(result);
             Assert.IsNull(tire);

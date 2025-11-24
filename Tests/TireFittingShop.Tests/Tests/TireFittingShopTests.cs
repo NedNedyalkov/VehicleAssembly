@@ -89,8 +89,8 @@ namespace TireFittingShop.Tests.Tests
             int mechanics,
             double minArrivalTimeRangeSec,
             double maxArrivalTimeRangeSec,
-            double minChangeTireTimeRangeSec,
-            double maxChangeTireTimeRangeSec)
+            double minChangeTiresTimeRangeSec,
+            double maxChangeTiresTimeRangeSec)
         {
             Random rnd = new(TestSeed);
             var timeProvider = new RealTimeProvider();
@@ -101,8 +101,8 @@ namespace TireFittingShop.Tests.Tests
                 concurrentMechanics: mechanics,
                 minArrival: TimeSpan.FromSeconds(minArrivalTimeRangeSec),
                 maxArrival: TimeSpan.FromSeconds(maxArrivalTimeRangeSec),
-                minChange: TimeSpan.FromSeconds(minChangeTireTimeRangeSec),
-                maxChange: TimeSpan.FromSeconds(maxChangeTireTimeRangeSec),
+                minChange: TimeSpan.FromSeconds(minChangeTiresTimeRangeSec),
+                maxChange: TimeSpan.FromSeconds(maxChangeTiresTimeRangeSec),
                 customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider(seed: rnd.Next())),
                 loggerFactory: () => logger ??= new MemoryLogger(timeProvider),
                 randomProviderFactory: () => new SystemRandomProvider(seed: rnd.Next()),
@@ -112,7 +112,7 @@ namespace TireFittingShop.Tests.Tests
 
             Debug.WriteLine($"Starting simulation with {customers} customers and {mechanics} mechanics.");
             Debug.WriteLine($"Arrival time range: {minArrivalTimeRangeSec}s - {maxArrivalTimeRangeSec}s.");
-            Debug.WriteLine($"Tires change time range: {minChangeTireTimeRangeSec}s - {maxChangeTireTimeRangeSec}s.");
+            Debug.WriteLine($"Tires change time range: {minChangeTiresTimeRangeSec}s - {maxChangeTiresTimeRangeSec}s.");
 
             tireFittingShop.SimulationStarted += timeProvider.Reset;
             await tireFittingShop.RunAsync(cancellationToken: CancellationToken.None);
@@ -123,8 +123,8 @@ namespace TireFittingShop.Tests.Tests
                 mechanics,
                 minArrivalTimeRangeSec,
                 maxArrivalTimeRangeSec,
-                minChangeTireTimeRangeSec,
-                maxChangeTireTimeRangeSec,
+                minChangeTiresTimeRangeSec,
+                maxChangeTiresTimeRangeSec,
                 out var minExpectedDuration,
                 out var maxExpectedDuration);
 
@@ -153,8 +153,8 @@ namespace TireFittingShop.Tests.Tests
             int mechanics,
             double minArrivalTimeRangeSec,
             double maxArrivalTimeRangeSec,
-            double minChangeTireTimeRangeSec,
-            double maxChangeTireTimeRangeSec,
+            double minChangeTiresTimeRangeSec,
+            double maxChangeTiresTimeRangeSec,
             double expectedMinDurationSec,
             double expectedMaxDurationSec
             )
@@ -164,8 +164,8 @@ namespace TireFittingShop.Tests.Tests
                 mechanics: mechanics,
                 minArrivalTimeRangeSec: minArrivalTimeRangeSec,
                 maxArrivalTimeRangeSec: maxArrivalTimeRangeSec,
-                minChangeTireTimeRangeSec: minChangeTireTimeRangeSec,
-                maxChangeTireTimeRangeSec: maxChangeTireTimeRangeSec,
+                minChangeTiresTimeRangeSec: minChangeTiresTimeRangeSec,
+                maxChangeTiresTimeRangeSec: maxChangeTiresTimeRangeSec,
                 out var minExpectedDuration,
                 out var maxExpectedDuration);
             Assert.AreEqual(expectedMinDurationSec, minExpectedDuration.TotalSeconds);
@@ -177,8 +177,8 @@ namespace TireFittingShop.Tests.Tests
             int mechanics,
             double minArrivalTimeRangeSec,
             double maxArrivalTimeRangeSec,
-            double minChangeTireTimeRangeSec,
-            double maxChangeTireTimeRangeSec,
+            double minChangeTiresTimeRangeSec,
+            double maxChangeTiresTimeRangeSec,
             out TimeSpan minExpectedDuration,
             out TimeSpan maxExpectedDuration)
         {
@@ -194,8 +194,8 @@ namespace TireFittingShop.Tests.Tests
             double firstArrivalMax = maxArrivalTimeRangeSec;
 
             // tires change total per batch
-            double totalChangeMin = batches * minChangeTireTimeRangeSec;
-            double totalChangeMax = batches * maxChangeTireTimeRangeSec;
+            double totalChangeMin = batches * minChangeTiresTimeRangeSec;
+            double totalChangeMax = batches * maxChangeTiresTimeRangeSec;
 
             double minExpectedSeconds;
             double maxExpectedSeconds;

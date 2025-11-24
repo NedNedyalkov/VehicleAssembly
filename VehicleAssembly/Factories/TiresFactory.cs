@@ -2,9 +2,9 @@
 
 namespace VehicleAssembly.Factories
 {
-    public static class TireFactory
+    public static class TiresFactory
     {
-        public static bool TryCreateSummerTire(float pressureBar, float maxTemperatureC, out SummerTires? tires)
+        public static bool TryCreateSummerTires(float pressureBar, float maxTemperatureC, out SummerTires? tires)
         {
             try
             {
@@ -17,7 +17,7 @@ namespace VehicleAssembly.Factories
             return tires is not null;
         }
 
-        public static bool TryCreateWinterTire(float pressureBar, float minTemperatureC, float thicknessCm, out WinterTires? tires)
+        public static bool TryCreateWinterTires(float pressureBar, float minTemperatureC, float thicknessCm, out WinterTires? tires)
         {
             try
             {

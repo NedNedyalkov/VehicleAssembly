@@ -46,8 +46,8 @@ namespace TireFittingShop.Simulation
                 .Select(_ => Task.Run(async () =>
                 {
                     var mechanic = new Mechanic(
-                        _config.MinChangeTireTime,
-                        _config.MaxChangeTireTime,
+                        _config.MinChangeTiresTime,
+                        _config.MaxChangeTiresTime,
                         _config.RandomProviderFactory(),
                         _config.WorkSimulatorFactory(),
                         _config.LoggerFactory());

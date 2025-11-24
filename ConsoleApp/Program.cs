@@ -12,8 +12,8 @@ namespace ConsoleApp
             new Parameter("Mechanics", typeof(int)),
             new Parameter("Minimum Arrival Time", typeof(float)),
             new Parameter("Maximum Arrival Time", typeof(float)),
-            new Parameter("Minimum Tire Change Time", typeof(float)),
-            new Parameter("Maximum Tire Change Time", typeof(float))];
+            new Parameter("Minimum Tires Change Time", typeof(float)),
+            new Parameter("Maximum Tires Change Time", typeof(float))];
 
         static async Task Main(string[] _)
         {

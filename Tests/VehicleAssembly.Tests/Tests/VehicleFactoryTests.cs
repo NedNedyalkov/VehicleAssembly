@@ -50,17 +50,17 @@ namespace VehicleAssembly.Tests.Tests
         }
 
         [TestMethod]
-        public void VehicleFactory_CreatingVehicleWithNoTire_DoesNotThrowButReturnsFalse()
+        public void VehicleFactory_CreatingVehicleWithNoTires_DoesNotThrowButReturnsFalse()
         {
-            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, null!, out var vehicle);
+            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, tires: null!, out var vehicle);
             Assert.IsFalse(result);
             Assert.IsNull(vehicle);
         }
 
         [TestMethod]
-        public void VehicleFactory_CreatingCarWithNoTire_DoesNotThrowButReturnsFalse()
+        public void VehicleFactory_CreatingCarWithNoTires_DoesNotThrowButReturnsFalse()
         {
-            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, null!, out var car);
+            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, tires: null!, out var car);
             Assert.IsFalse(result);
             Assert.IsNull(car);
         }
