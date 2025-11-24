@@ -7,6 +7,14 @@ using VehicleAssembly.Factories;
 
 namespace TireFittingShop.Services
 {
+    /// <summary>
+    /// Provides functionality to create customers with randomly assigned vehicles.
+    /// </summary>
+    /// <remarks>This factory generates customers with unique IDs and assigns each customer a vehicle 
+    /// selected randomly from a predefined set of vehicle manufacturers. The randomness is  determined by the provided
+    /// <see cref="IRandomProvider"/> implementation.
+    /// <para/>
+    /// This class it not thread safe! It's assumed only a single instance of it will run concurrently!</remarks>
     public class RandomCustomerFactory : ICustomerFactory
     {
         private readonly List<Func<Vehicle>> _vehicleFactories = [];
