@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using VehicleAssembly.Domain.Manufacturers;
+using VehicleAssembly.Domain.Vehicles;
 using VehicleAssembly.Factories;
 
 namespace VehicleAssembly.Tests.Tests
@@ -33,7 +34,16 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void TryCreateCarManufacturer_InvalidManufacturer_ReturnsFalseAndNull()
         {
-            var result = ManufacturerFactory.TryCreateCarManufacturer(invalidManufacturer, out var manufacturer);
+            bool? result = null;
+            Manufacturer? manufacturer = null;
+            try
+            {
+                result = ManufacturerFactory.TryCreateCarManufacturer(invalidManufacturer, out manufacturer);
+            }
+            catch
+            {
+                Assert.Fail("ManufacturerFactory.TryCreateCarManufacturer threw an exception for an invalid manufacturer.");
+            }
 
             Assert.IsFalse(result);
             Assert.IsNull(manufacturer);

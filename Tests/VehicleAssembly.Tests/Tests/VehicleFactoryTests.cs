@@ -8,6 +8,8 @@ namespace VehicleAssembly.Tests.Tests
     [TestClass]
     public sealed class VehicleFactoryTests
     {
+        private CarManufacturersEnum invalidManufacturer = (CarManufacturersEnum)999;
+
         [TestMethod]
         public void VehicleFactory_CreatingCar_IsSuccessfull()
         {
@@ -36,6 +38,25 @@ namespace VehicleAssembly.Tests.Tests
         public void VehicleFactory_CreatingCarWithNoTires_DoesNotThrowButReturnsFalse()
         {
             var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, tires: null!, out var car);
+            Assert.IsFalse(result);
+            Assert.IsNull(car);
+        }
+
+        [TestMethod]
+        public void VehicleFactory_InvalidManufacturer_ReturnsFalseAndNull()
+        {
+            Car? car = null;
+            bool? result = null;
+
+            try
+            {
+                result = VehicleFactory.TryCreateCar(invalidManufacturer, out car);
+            }
+            catch
+            {
+                Assert.Fail("VehicleFactory.TryCreateCar threw an exception for an invalid manufacturer.");
+            }
+
             Assert.IsFalse(result);
             Assert.IsNull(car);
         }
