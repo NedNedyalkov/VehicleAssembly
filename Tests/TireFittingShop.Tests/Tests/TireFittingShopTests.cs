@@ -8,6 +8,8 @@ namespace TireFittingShop.Tests.Tests
     public sealed class TireFittingShopTests
     {
         private const int TestSeed = 42;
+        private const double AbsoluteTimingToleranceSeconds = 0.1;
+        private const double RelativeTimingTolerancePercentages = 10;
 
         [DataTestMethod]
         //Task cases
@@ -129,9 +131,9 @@ namespace TireFittingShop.Tests.Tests
                 out var maxExpectedDuration);
 
             // Add a small buffer for timing inaccuracies of Task.Delay
-            minExpectedDuration -= TimeSpan.FromSeconds(0.1);
+            minExpectedDuration -= TimeSpan.FromSeconds(AbsoluteTimingToleranceSeconds);
             // Add a small buffer for the actual work done
-            maxExpectedDuration += TimeSpan.FromSeconds(Math.Max(1, maxExpectedDuration.TotalSeconds * 0.1));
+            maxExpectedDuration += TimeSpan.FromSeconds(Math.Max(1, maxExpectedDuration.TotalSeconds * RelativeTimingTolerancePercentages / 100));
 
             Debug.WriteLine($"Expected duration between {minExpectedDuration} and {maxExpectedDuration}.");
 
