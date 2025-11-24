@@ -10,20 +10,14 @@ namespace TireFittingShop.Simulation
         IWorkSimulator delayProvider,
         ILogger logger)
     {
-        public TimeSpan MinChangeTireTime { get; } = minChangeTireTime;
-        public TimeSpan MaxChangeTireTime { get; } = maxChangeTireTime;
-        public IRandomProvider RandomProvider { get; } = randomProvider;
-        public IWorkSimulator DelayProvider { get; } = delayProvider;
-        public ILogger Logger { get; } = logger;
-
         internal async Task ChangeCustomerTiresAsync(Customer customer, CancellationToken cancellationToken)
         {
-            var tireChangeRandomDuration = RandomProvider.NextDuration(MinChangeTireTime, MaxChangeTireTime);
-            Logger.WriteLine($"Customer {customer.Id} car tires are being changed and it will take {tireChangeRandomDuration.TotalSeconds:F1} seconds.");
+            var tireChangeRandomDuration = randomProvider.NextDuration(minChangeTireTime, maxChangeTireTime);
+            logger.WriteLine($"Customer {customer.Id} car tires are being changed and it will take {tireChangeRandomDuration.TotalSeconds:F1} seconds.");
 
-            await DelayProvider.DoWork(tireChangeRandomDuration, cancellationToken);
+            await delayProvider.DoWork(tireChangeRandomDuration, cancellationToken);
 
-            Logger.WriteLine($"Customer {customer.Id} has left.");
+            logger.WriteLine($"Customer {customer.Id} has left.");
         }
     }
 }
