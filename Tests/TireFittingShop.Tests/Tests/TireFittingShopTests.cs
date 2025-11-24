@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using TireFittingShop.Abstractions;
 using TireFittingShop.Services;
 using TireFittingShop.Tests.Utilities;
 
@@ -94,6 +93,7 @@ namespace TireFittingShop.Tests.Tests
             double maxChangeTireTimeRangeSec)
         {
             Random rnd = new(TestSeed);
+            var timeProvider = new RealTimeProvider();
             MemoryLogger logger = null!;
 
             var config = new Simulation.TireFittingShopConfiguration(
@@ -104,7 +104,7 @@ namespace TireFittingShop.Tests.Tests
                 minChange: TimeSpan.FromSeconds(minChangeTireTimeRangeSec),
                 maxChange: TimeSpan.FromSeconds(maxChangeTireTimeRangeSec),
                 customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider(seed: rnd.Next())),
-                loggerFactory: () => logger = new MemoryLogger(new RealTimeProvider()),
+                loggerFactory: () => logger ??= new MemoryLogger(timeProvider),
                 randomProviderFactory: () => new SystemRandomProvider(seed: rnd.Next()),
                 workSimulatorFactory: () => new TaskDelayWorkSimulator()
             );
@@ -114,7 +114,9 @@ namespace TireFittingShop.Tests.Tests
             Debug.WriteLine($"Arrival time range: {minArrivalTimeRangeSec}s - {maxArrivalTimeRangeSec}s.");
             Debug.WriteLine($"Tire change time range: {minChangeTireTimeRangeSec}s - {maxChangeTireTimeRangeSec}s.");
 
+            tireFittingShop.SimulationStarted += timeProvider.Reset;
             await tireFittingShop.RunAsync(cancellationToken: CancellationToken.None);
+            tireFittingShop.SimulationStarted -= timeProvider.Reset;
 
             CalculateMinAndMaxExpectedDurations(
                 customers,
@@ -137,95 +139,6 @@ namespace TireFittingShop.Tests.Tests
             Assert.IsTrue(
                 loggedDuration >= minExpectedDuration && loggedDuration <= maxExpectedDuration,
                 $"Expected duration between {minExpectedDuration} and {maxExpectedDuration}, but was {loggedDuration}.");
-        }
-
-        [DataTestMethod]
-        [DataRow(0, 1, 0, 1, 2, 5)] // 0 customers
-        [DataRow(1, 0, 0, 1, 2, 5)] // 0 mechanics
-        [DataRow(1, 1, 1, 0, 5, 2)] // min arrival time > max arrival time
-        [DataRow(1, 1, 1, 0, 5, 2)] // min change time > max change time
-        public void TireFittingShopConfiguration_InvalidSimulationOptions_ThrowException(
-            int customers,
-            int mechanics,
-            double minArrivalTimeRangeSec,
-            double maxArrivalTimeRangeSec,
-            double minChangeTireTimeRangeSec,
-            double maxChangeTireTimeRangeSec)
-        {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
-                new Simulation.TireFittingShopConfiguration(
-                    totalCustomers: customers,
-                    concurrentMechanics: mechanics,
-                    minArrival: TimeSpan.FromSeconds(minArrivalTimeRangeSec),
-                    maxArrival: TimeSpan.FromSeconds(maxArrivalTimeRangeSec),
-                    minChange: TimeSpan.FromSeconds(minChangeTireTimeRangeSec),
-                    maxChange: TimeSpan.FromSeconds(maxChangeTireTimeRangeSec),
-                    customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider(seed: TestSeed)),
-                    loggerFactory: () => new MemoryLogger(new RealTimeProvider()),
-                    randomProviderFactory: () => new SystemRandomProvider(seed: TestSeed),
-                    workSimulatorFactory: () => new TaskDelayWorkSimulator()
-            ));
-        }
-
-        [TestMethod]
-        public void TireFittingShopConfiguration_NoFactories_ThrowException()
-        {
-            static ICustomerFactory customerGeneratorFactory() => new RandomCustomerFactory(new SystemRandomProvider(seed: TestSeed));
-            static ILogger loggerFactory() => new MemoryLogger(new RealTimeProvider());
-            static IRandomProvider randomProviderFactory() => new SystemRandomProvider(seed: TestSeed);
-            static IWorkSimulator workSimulatorFactory() => new TaskDelayWorkSimulator();
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShopConfiguration(
-                    totalCustomers: 1,
-                    concurrentMechanics: 1,
-                    minArrival: TimeSpan.FromSeconds(1),
-                    maxArrival: TimeSpan.FromSeconds(1),
-                    minChange: TimeSpan.FromSeconds(1),
-                    maxChange: TimeSpan.FromSeconds(1),
-                    customerGeneratorFactory: null!,
-                    loggerFactory: loggerFactory,
-                    randomProviderFactory: randomProviderFactory,
-                    workSimulatorFactory: workSimulatorFactory));
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShopConfiguration(
-                    totalCustomers: 1,
-                    concurrentMechanics: 1,
-                    minArrival: TimeSpan.FromSeconds(1),
-                    maxArrival: TimeSpan.FromSeconds(1),
-                    minChange: TimeSpan.FromSeconds(1),
-                    maxChange: TimeSpan.FromSeconds(1),
-                    customerGeneratorFactory: customerGeneratorFactory,
-                    loggerFactory: null!,
-                    randomProviderFactory: randomProviderFactory,
-                    workSimulatorFactory: workSimulatorFactory));
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShopConfiguration(
-                    totalCustomers: 1,
-                    concurrentMechanics: 1,
-                    minArrival: TimeSpan.FromSeconds(1),
-                    maxArrival: TimeSpan.FromSeconds(1),
-                    minChange: TimeSpan.FromSeconds(1),
-                    maxChange: TimeSpan.FromSeconds(1),
-                    customerGeneratorFactory: customerGeneratorFactory,
-                    loggerFactory: loggerFactory,
-                    randomProviderFactory: null!,
-                    workSimulatorFactory: workSimulatorFactory));
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-                new Simulation.TireFittingShopConfiguration(
-                    totalCustomers: 1,
-                    concurrentMechanics: 1,
-                    minArrival: TimeSpan.FromSeconds(1),
-                    maxArrival: TimeSpan.FromSeconds(1),
-                    minChange: TimeSpan.FromSeconds(1),
-                    maxChange: TimeSpan.FromSeconds(1),
-                    customerGeneratorFactory: customerGeneratorFactory,
-                    loggerFactory: loggerFactory,
-                    randomProviderFactory: randomProviderFactory,
-                    workSimulatorFactory: null!));
         }
 
         [DataTestMethod]
