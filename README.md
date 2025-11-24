@@ -34,7 +34,7 @@ TireFittingShop.Tests/  Tests for simulation, cancellation, producers/consumers
 
 The domain assembly defines core entities:
 - `Car`, `Motorcycle`, `Vehicle`
-- `SummerTire`, `WinterTire`, `Tire`
+- `SummerTires`, `WinterTires`, `Tires`
 - `Manufacturer` and concrete manufacturer implementations
 - Separate enums: `CarManufacturersEnum` and `MotorcycleManufacturersEnum`
 
@@ -46,7 +46,6 @@ The domain assembly defines core entities:
 | No runtime exceptions during creation | `TryCreateX(out T?)` factory pattern used across assembly |
 | Compile-time type correctness | Two specific enums instead of polymorphic base types |
 | Avoid dependency injection misuse | Factories and abstract classes are internal, not replaceable externally |
-| Minimize object churn | Singleton manufacturers using `Lazy<T>` |
 
 ---
 
@@ -56,7 +55,7 @@ Vehicle and tire creation uses controlled access:
 
 ```csharp
 VehicleFactory.TryCreateCar(CarManufacturersEnum.Toyota, out var car);
-TireFactory.TryCreateWinterTire(2.2f, -10f, 3.0f, out var tire);
+TiresFactory.TryCreateWinterTires(2.2f, -10f, 3.0f, out var tire);
 ````
 
 This ensures that:
@@ -155,15 +154,15 @@ Tests use `InternalsVisibleTo` intentionally to test domain behaviors that remai
 
 ## 🧠 Design Patterns in Use
 
-| Pattern                     | Location                                         | Benefit                                                   |
-| --------------------------- | ------------------------------------------------ | --------------------------------------------------------- |
-| **Abstract Factory**        | VehicleFactory, TireFactory, ManufacturerFactory | Safe object creation with no runtime exceptions           |
-| **Factory Method**          | Customer generation                              | Decouples consumer workflow from creation logic           |
-| **Producer / Consumer**     | TireFittingShop simulation                       | Concurrent customer processing                            |
-| **Strategy**                | IRandomProvider, ILogger, IWorkSimulator         | Replaceable components for testing and performance tuning |
-| **Service Factory Pattern** | TireFittingShopConfiguration                     | Dependency creation per run, not via static DI container  |
-| **Singleton (Lazy<T>)**     | Manufacturer instances & default tire            | Guaranteed single instance configuration                  |
-| **Fail-safe TryCreate**     | Factories returning `bool`                       | Predictable result handling                               |
+| Pattern                     | Location                                          | Benefit                                                   |
+| --------------------------- | ------------------------------------------------- | --------------------------------------------------------- |
+| **Abstract Factory**        | VehicleFactory, TiresFactory, ManufacturerFactory | Safe object creation with no runtime exceptions           |
+| **Factory Method**          | Customer generation                               | Decouples consumer workflow from creation logic           |
+| **Producer / Consumer**     | TireFittingShop simulation                        | Concurrent customer processing                            |
+| **Strategy**                | IRandomProvider, ILogger, IWorkSimulator          | Replaceable components for testing and performance tuning |
+| **Service Factory Pattern** | TireFittingShopConfiguration                      | Dependency creation per run, not via static DI container  |
+| **Singleton (Lazy<T>)**     | Manufacturer instances & default tires            | Guaranteed single instance configuration                  |
+| **Fail-safe TryCreate**     | Factories returning `bool`                        | Predictable result handling                               |
 
 ---
 
@@ -171,7 +170,7 @@ Tests use `InternalsVisibleTo` intentionally to test domain behaviors that remai
 
 ### Requirements
 
-* .NET 8.0 SDK or later
+* .NET 9.0 SDK or later
 
 ### Run instructions
 
@@ -187,4 +186,5 @@ dotnet run --project ConsoleApp
 
 * Use CodeGeneration to automate creation of Manufacturers.
 * Deterministic Unit tests that don't require to run the whole duration.
+* Generate Customers with different type of tires and maybe log the new tires they get.
 
