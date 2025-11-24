@@ -8,12 +8,13 @@ namespace TireFittingShop.Tests.Utilities
     {
         public record struct LogEntry(TimeSpan Elapsed, string Message);
         public ConcurrentQueue<LogEntry> Logs { get; } = [];
-        public ITimeProvider TimeProvider { get; } = timeProvider;
 
         public void WriteLine(string message)
         {
-            Debug.WriteLine($"{TimeProvider.Elapsed.TotalSeconds:F1} {message}");
-            Logs.Enqueue(new LogEntry(TimeProvider.Elapsed, message));
+            var elapsed = timeProvider.Elapsed;
+
+            Debug.WriteLine($"{elapsed.TotalSeconds:F1} {message}");
+            Logs.Enqueue(new LogEntry(elapsed, message));
         }
     }
 }
