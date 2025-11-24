@@ -10,7 +10,7 @@ namespace VehicleAssembly.Factories
             {
                 tires = new SummerTires(maxTemperatureC: maxTemperatureC, pressureBar: pressureBar);
             }
-            catch
+            catch (ArgumentException)
             {
                 tires = null;
             }
@@ -23,7 +23,7 @@ namespace VehicleAssembly.Factories
             {
                 tires = new WinterTires(minTemperatureC: minTemperatureC, thicknessCm: thicknessCm, pressureBar: pressureBar);
             }
-            catch
+            catch (ArgumentException)
             {
                 tires = null;
             }

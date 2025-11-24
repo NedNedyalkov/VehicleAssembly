@@ -125,15 +125,5 @@ namespace VehicleAssembly.Tests.Tests
                 }
             }
         }
-
-        [TestMethod]
-        public void Vehicles_CreateOverlappingVehicleTypes_ShouldCreateDifferentVehicles()
-        {
-            VehicleFactory.TryCreateVehicle(CarManufacturersEnum.Honda, out var hondaCar);
-            VehicleFactory.TryCreateVehicle(MotorcycleManufacturersEnum.Honda, out var hondaMotorcycle);
-
-            Assert.IsInstanceOfType<Car>(hondaCar);
-            Assert.IsInstanceOfType<Motorcycle>(hondaMotorcycle);
-        }
     }
 }

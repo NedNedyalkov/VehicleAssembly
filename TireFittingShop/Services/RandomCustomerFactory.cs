@@ -29,7 +29,7 @@ namespace TireFittingShop.Services
             {
                 _vehicleFactories.Add(() =>
                 {
-                    VehicleFactory.TryCreateVehicle(carManufacturer, out var car);
+                    VehicleFactory.TryCreateCar(carManufacturer, out var car);
                     Debug.Assert(car is not null, $"Failed to create car for manufacturer {carManufacturer}.");
                     return car!;
                 });

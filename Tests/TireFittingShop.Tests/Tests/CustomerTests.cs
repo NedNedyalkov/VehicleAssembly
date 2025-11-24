@@ -10,7 +10,7 @@ namespace TireFittingShop.Tests.Tests
         public void Customer_Creation_SetsPropertiesCorrectly()
         {
             var customerId = 1;
-            var success = VehicleFactory.TryCreateVehicle(CarManufacturersEnum.Toyota, out var vehicle);
+            var success = VehicleFactory.TryCreateCar(CarManufacturersEnum.Toyota, out var vehicle);
             Assert.IsTrue(success);
 
             var customer = new Domain.Customer(customerId, vehicle!);

@@ -10,7 +10,7 @@ namespace VehicleAssembly.Factories
             {
                 Manufacturers.CarManufacturers.TryGetValue(carManufacturer, out manufacturer);
             }
-            catch
+            catch (ArgumentException)
             {
                 manufacturer = null;
             }
@@ -23,7 +23,7 @@ namespace VehicleAssembly.Factories
             {
                 Manufacturers.MotorcycleManufacturers.TryGetValue(motorcycleManufacturer, out manufacturer);
             }
-            catch
+            catch (ArgumentException)
             {
                 manufacturer = null;
             }
