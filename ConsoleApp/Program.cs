@@ -49,8 +49,7 @@ namespace ConsoleApp
         {
             using var cts = new CancellationTokenSource();
             using var consoleCts = new CancellationTokenSource();
-            RealTimeProvider timeProvider = null!;
-            ConsoleLogger logger = null!;
+            var timeProvider = new RealTimeProvider();
 
             var config = new TireFittingShop.Simulation.TireFittingShopConfiguration(
                 totalCustomers: (int)requiredParameters[0].Value,
@@ -60,7 +59,7 @@ namespace ConsoleApp
                 minChange: TimeSpan.FromSeconds((float)requiredParameters[4].Value),
                 maxChange: TimeSpan.FromSeconds((float)requiredParameters[5].Value),
                 customerGeneratorFactory: () => new RandomCustomerFactory(new SystemRandomProvider()),
-                loggerFactory: () => logger = new ConsoleLogger(timeProvider = new RealTimeProvider()),
+                loggerFactory: () => new ConsoleLogger(timeProvider),
                 randomProviderFactory: () => new SystemRandomProvider(),
                 workSimulatorFactory: () => new TaskDelayWorkSimulator());
 
@@ -87,7 +86,9 @@ namespace ConsoleApp
 
             try
             {
+                tireFittingShop.SimulationStarted += timeProvider.Reset;
                 await tireFittingShop.RunAsync(cts.Token);
+                tireFittingShop.SimulationStarted -= timeProvider.Reset;
 
                 Console.WriteLine();
                 Console.WriteLine($"Simulation completed successfully for {timeProvider.Elapsed}");

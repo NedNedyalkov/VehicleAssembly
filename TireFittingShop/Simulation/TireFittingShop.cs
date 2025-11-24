@@ -17,6 +17,8 @@ namespace TireFittingShop.Simulation
     {
         private readonly TireFittingShopConfiguration _config = config ?? throw new ArgumentNullException(nameof(config));
 
+        public event Action? SimulationStarted;
+
         /// <summary>
         /// Runs the tire fitting shop simulation asynchronously.
         /// </summary>
@@ -25,16 +27,15 @@ namespace TireFittingShop.Simulation
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled via <paramref name="cancellationToken"/>.</exception>
         public async Task RunAsync(CancellationToken cancellationToken)
         {
+            SimulationStarted?.Invoke();
             using var waitingCustomers = new BlockingCollection<Customer>();
-            var sharedWorkSimulator = _config.WorkSimulatorFactory();
-            var logger = _config.LoggerFactory();
 
             var customerGenerator = new CustomerProducer(
                 _config.MinCustomerArrivalTime,
                 _config.MaxCustomerArrivalTime,
                 _config.RandomProviderFactory(),
-                sharedWorkSimulator,
-                logger,
+                _config.WorkSimulatorFactory(),
+                _config.LoggerFactory(),
                 _config.CustomerGeneratorFactory());
 
             // Start customer producer
@@ -48,8 +49,8 @@ namespace TireFittingShop.Simulation
                         _config.MinChangeTireTime,
                         _config.MaxChangeTireTime,
                         _config.RandomProviderFactory(),
-                        sharedWorkSimulator,
-                        logger);
+                        _config.WorkSimulatorFactory(),
+                        _config.LoggerFactory());
                     await MechanicWorkLoopAsync(waitingCustomers, mechanic, cancellationToken);
                 }, cancellationToken));
 
