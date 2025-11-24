@@ -31,6 +31,11 @@ namespace ConsoleApp
 
                 try
                 {
+                    Console.WriteLine();
+                    Console.WriteLine("Starting simulation");
+                    Console.WriteLine("Press any key to cancel the simulation...");
+                    Console.WriteLine();
+
                     await RunSimulation();
                 }
                 catch (Exception ex)

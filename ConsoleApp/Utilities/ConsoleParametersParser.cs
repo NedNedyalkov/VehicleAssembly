@@ -18,7 +18,7 @@ namespace ConsoleApp.Utilities
 
         private static bool AskForParameter(Parameter parameterDescription, out object value)
         {
-            Console.WriteLine($"Input {parameterDescription.Name}:");
+            Console.Write($"Input {parameterDescription.Name}:");
             var input = Console.ReadLine();
             try
             {
