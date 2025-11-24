@@ -193,7 +193,7 @@ namespace TireFittingShop.Tests.Tests
             double firstArrivalMin = minArrivalTimeRangeSec;
             double firstArrivalMax = maxArrivalTimeRangeSec;
 
-            // tire change total per batch
+            // tires change total per batch
             double totalChangeMin = batches * minChangeTireTimeRangeSec;
             double totalChangeMax = batches * maxChangeTireTimeRangeSec;
 

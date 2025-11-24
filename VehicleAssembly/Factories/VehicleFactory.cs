@@ -114,15 +114,15 @@ namespace VehicleAssembly.Factories
         /// If you want to create a vehicle without specifying tires, use the overload of <see cref="TryCreateVehicle(CarManufacturersEnum manufaccturer, out var vehicle)"/> instead.
         /// </remarks>
         /// <param name="manufacturer">The manufacturer used to create the vehicle.</param>
-        /// <param name="tire">The tire to be used in the vehicle creation process. Must not be <see langword="null"/>.</param>
+        /// <param name="tires">The tires to be used in the vehicle creation process. Must not be <see langword="null"/>.</param>
         /// <param name="vehicle">When this method returns, contains the created vehicle if the operation was successful; otherwise, <see
         /// langword="null"/>.</param>
         /// <returns><see langword="true"/> if the vehicle was successfully created; otherwise, <see langword="false"/>.</returns>
-        public static bool TryCreateVehicle(CarManufacturersEnum manufacturer, Tire tire, out Vehicle? vehicle)
+        public static bool TryCreateVehicle(CarManufacturersEnum manufacturer, Tires tires, out Vehicle? vehicle)
         {
             try
             {
-                TryCreateCar(manufacturer, tire, out var car);
+                TryCreateCar(manufacturer, tires, out var car);
                 vehicle = car;
             }
             catch
@@ -142,11 +142,11 @@ namespace VehicleAssembly.Factories
         /// If you want to create a car without specifying tires, use the overload of <see cref="TryCreateCar(CarManufacturersEnum manufaccturer, out var car)"/> instead.
         /// </remarks>
         /// <param name="manufacturer">The manufacturer used to create the car.</param>
-        /// <param name="tire">The tire to use for the car. Must not be <see langword="null"/>.</param>
+        /// <param name="tires">The tires to use for the car. Must not be <see langword="null"/>.</param>
         /// <param name="car">When this method returns, contains the created <see cref="Car"/> instance if the operation succeeds;
         /// otherwise, <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if the car was successfully created; otherwise, <see langword="false"/>.</returns>
-        public static bool TryCreateCar(CarManufacturersEnum manufacturer, Tire tire, out Car? car)
+        public static bool TryCreateCar(CarManufacturersEnum manufacturer, Tires tires, out Car? car)
         {
             car = null;
             try
@@ -154,7 +154,7 @@ namespace VehicleAssembly.Factories
                 if (!ManufacturerFactory.TryCreateCarManufacturer(manufacturer, out var result))
                     return false;
 
-                car = new Car(result!, tire);
+                car = new Car(result!, tires);
             }
             catch { }
             return car is not null;

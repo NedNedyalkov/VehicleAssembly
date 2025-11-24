@@ -30,8 +30,8 @@ namespace TireFittingShop.Simulation
         /// <param name="concurrentMechanics">The number of concurrent mechanics. Must be greater than zero.</param>
         /// <param name="minArrival">The minimum customer arrival time. Must be non-negative.</param>
         /// <param name="maxArrival">The maximum customer arrival time. Must be greater than or equal to <paramref name="minArrival"/>.</param>
-        /// <param name="minChange">The minimum tire change duration. Must be non-negative.</param>
-        /// <param name="maxChange">The maximum tire change duration. Must be greater than or equal to <paramref name="minChange"/>.</param>
+        /// <param name="minChange">The minimum tires change duration. Must be non-negative.</param>
+        /// <param name="maxChange">The maximum tires change duration. Must be greater than or equal to <paramref name="minChange"/>.</param>
         /// <param name="customerGeneratorFactory">Factory for creating customer generators. Must be present.</param>
         /// <param name="loggerFactory">Factory for creating loggers. Must be present.</param>
         /// <param name="randomProviderFactory">Factory for creating random providers. Must be present.</param>

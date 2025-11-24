@@ -36,7 +36,7 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void VehicleFactory_CreatingVehicleWithTires_IsSuccessfull()
         {
-            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, tire: SummerTire.Default.Value, out var vehicle);
+            var result = VehicleFactory.TryCreateVehicle(manufacturer: CarManufacturersEnum.Toyota, tires: SummerTires.Default.Value, out var vehicle);
             Assert.IsTrue(result);
             Assert.IsInstanceOfType<Vehicle>(vehicle);
         }
@@ -44,7 +44,7 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void VehicleFactory_CreatingCarWithTires_IsSuccessfull()
         {
-            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, tire: SummerTire.Default.Value, out var car);
+            var result = VehicleFactory.TryCreateCar(manufacturer: CarManufacturersEnum.Toyota, tires: SummerTires.Default.Value, out var car);
             Assert.IsTrue(result);
             Assert.IsInstanceOfType<Car>(car);
         }

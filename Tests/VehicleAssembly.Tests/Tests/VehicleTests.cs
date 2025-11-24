@@ -40,7 +40,7 @@ namespace VehicleAssembly.Tests.Tests
             var logger = new MemoryLogger();
             var car = new Car(CarManufacturers.Honda.Value, logger);
 
-            car.ReplaceTires(new WinterTire(-10, 3.1f, 2.0f));
+            car.ReplaceTires(new WinterTires(-10, 3.1f, 2.0f));
             car.ShowInformation();
 
             logger.Log.ToString().ShouldContain("Winter Tire: MinTemperature = -10 °C, Thickness = 3.1 cm, Pressure=2 bar");
@@ -52,8 +52,8 @@ namespace VehicleAssembly.Tests.Tests
         {
             var car = new Car(CarManufacturers.Honda.Value);
 
-            Assert.IsInstanceOfType<SummerTire>(car.Tire);
-            Assert.AreSame(SummerTire.Default.Value, car.Tire);
+            Assert.IsInstanceOfType<SummerTires>(car.Tires);
+            Assert.AreSame(SummerTires.Default.Value, car.Tires);
         }
 
         [TestMethod]
@@ -62,20 +62,20 @@ namespace VehicleAssembly.Tests.Tests
             TireFactory.TryCreateSummerTire(pressureBar: 2.2f, maxTemperatureC: 44, out var expectedSummerTire);
             var car = new Car(CarManufacturers.Honda.Value, expectedSummerTire!);
 
-            Assert.IsInstanceOfType<SummerTire>(car.Tire);
-            Assert.AreEqual(expectedSummerTire, car.Tire);
+            Assert.IsInstanceOfType<SummerTires>(car.Tires);
+            Assert.AreEqual(expectedSummerTire, car.Tires);
         }
 
         [TestMethod]
         public void Vehicle_ReplaceCarTires_WorksCorrectly()
         {
             var car = new Car(CarManufacturers.Toyota.Value);
-            var expectedWinterTire = new WinterTire(minTemperatureC: -20, thicknessCm: 3.2f, pressureBar: 2.3f);
+            var expectedWinterTire = new WinterTires(minTemperatureC: -20, thicknessCm: 3.2f, pressureBar: 2.3f);
 
             car.ReplaceTires(expectedWinterTire);
 
-            Assert.IsInstanceOfType<WinterTire>(car.Tire);
-            Assert.AreEqual(expectedWinterTire, car.Tire);
+            Assert.IsInstanceOfType<WinterTires>(car.Tires);
+            Assert.AreEqual(expectedWinterTire, car.Tires);
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace VehicleAssembly.Tests.Tests
         [TestMethod]
         public void Vehicle_CarWithNullTire_ThrowsArgumentNullException()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new Car(CarManufacturers.Honda.Value, tire: null!));
+            Assert.ThrowsException<ArgumentNullException>(() => new Car(CarManufacturers.Honda.Value, tires: null!));
         }
 
         [TestMethod]

@@ -22,7 +22,7 @@ namespace VehicleAssembly.Tests.Tests
 
             Assert.IsTrue(result);
             Assert.IsNotNull(tire);
-            Assert.IsInstanceOfType<SummerTire>(tire);
+            Assert.IsInstanceOfType<SummerTires>(tire);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace VehicleAssembly.Tests.Tests
 
             Assert.IsTrue(result);
             Assert.IsNotNull(tire);
-            Assert.IsInstanceOfType<WinterTire>(tire);
+            Assert.IsInstanceOfType<WinterTires>(tire);
         }
 
         [TestMethod]

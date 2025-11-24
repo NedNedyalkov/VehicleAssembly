@@ -4,30 +4,30 @@ namespace VehicleAssembly.Factories
 {
     public static class TireFactory
     {
-        public static bool TryCreateSummerTire(float pressureBar, float maxTemperatureC, out SummerTire? tire)
+        public static bool TryCreateSummerTire(float pressureBar, float maxTemperatureC, out SummerTires? tires)
         {
             try
             {
-                tire = new SummerTire(maxTemperatureC: maxTemperatureC, pressureBar: pressureBar);
+                tires = new SummerTires(maxTemperatureC: maxTemperatureC, pressureBar: pressureBar);
             }
             catch
             {
-                tire = null;
+                tires = null;
             }
-            return tire is not null;
+            return tires is not null;
         }
 
-        public static bool TryCreateWinterTire(float pressureBar, float minTemperatureC, float thicknessCm, out WinterTire? tire)
+        public static bool TryCreateWinterTire(float pressureBar, float minTemperatureC, float thicknessCm, out WinterTires? tires)
         {
             try
             {
-                tire = new WinterTire(minTemperatureC: minTemperatureC, thicknessCm: thicknessCm, pressureBar: pressureBar);
+                tires = new WinterTires(minTemperatureC: minTemperatureC, thicknessCm: thicknessCm, pressureBar: pressureBar);
             }
             catch
             {
-                tire = null;
+                tires = null;
             }
-            return tire is not null;
+            return tires is not null;
         }
     }
 }

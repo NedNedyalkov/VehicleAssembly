@@ -1,17 +1,17 @@
 ﻿namespace VehicleAssembly.Domain.Tires
 {
-    public sealed record WinterTire : Tire
+    public sealed record WinterTires : Tires
     {
         /// <summary>
-        /// Minimum operating temperature of the tire in Celsius degrees
+        /// Minimum operating temperature of the tires in Celsius degrees
         /// </summary>
         public float MinTemperatureC { get; }
         /// <summary>
-        /// Thickness of the winter tire in centimeters
+        /// Thickness of the winter tires in centimeters
         /// </summary>
         public float ThicknessCm { get; }
 
-        internal WinterTire(float minTemperatureC, float thicknessCm, float pressureBar) : base(pressureBar)
+        internal WinterTires(float minTemperatureC, float thicknessCm, float pressureBar) : base(pressureBar)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(thicknessCm, nameof(thicknessCm));
             ArgumentOutOfRangeException.ThrowIfGreaterThan(minTemperatureC, 0, nameof(minTemperatureC));
@@ -20,6 +20,6 @@
             ThicknessCm = thicknessCm;
         }
 
-        public override string ToString() => $"Winter Tire: MinTemperature = {MinTemperatureC} °C, Thickness = {ThicknessCm} cm, Pressure={PressureBar} bar";
+        public override string ToString() => $"Winter Tires: MinTemperature = {MinTemperatureC} °C, Thickness = {ThicknessCm} cm, Pressure={PressureBar} bar";
     }
 }

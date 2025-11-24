@@ -1,13 +1,13 @@
 ﻿namespace VehicleAssembly.Domain.Tires
 {
-    public abstract record Tire
+    public abstract record Tires
     {
         /// <summary>
-        /// Recommended pressure of the tire in bars
+        /// Recommended pressure of the tires in bars
         /// </summary>
         public float PressureBar { get; }
 
-        internal Tire(float pressureBar)
+        internal Tires(float pressureBar)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(pressureBar, nameof(pressureBar));
             PressureBar = pressureBar;
