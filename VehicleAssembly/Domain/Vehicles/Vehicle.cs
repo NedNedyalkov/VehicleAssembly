@@ -9,11 +9,11 @@ namespace VehicleAssembly.Domain.Vehicles
         internal Vehicle(Manufacturer manufacturer, IVehicleShowInformationHandler? logger = null)
         {
             Manufacturer = manufacturer ?? throw new ArgumentNullException(paramName: nameof(manufacturer));
-            Logger = logger ?? new DebugLogger();
+            ShowInformationHandler = logger ?? new DebugVehicleInformationHandler();
         }
 
         public Manufacturer Manufacturer { get; init; }
-        internal IVehicleShowInformationHandler Logger { get; }
+        internal IVehicleShowInformationHandler ShowInformationHandler { get; }
 
         public abstract void ShowInformation();
         public abstract string GetInformation();

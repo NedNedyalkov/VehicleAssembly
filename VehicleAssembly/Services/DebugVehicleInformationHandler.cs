@@ -10,7 +10,7 @@ namespace VehicleAssembly.Services
     /// This logger is a record intentionally. This ensures it will not affect equality 
     /// comparisons for other records that contain logger instances.
     /// </remarks>
-    public record DebugLogger() : IVehicleShowInformationHandler
+    public record DebugVehicleInformationHandler() : IVehicleShowInformationHandler
     {
         public void ShowInformation(string message) => Debug.WriteLine(message);
     }
