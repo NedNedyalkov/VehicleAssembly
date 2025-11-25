@@ -10,7 +10,6 @@ namespace VehicleAssembly.Domain.Vehicles
         }
 
         public override string ToString() => $"Motorcycle: {Manufacturer}";
-        public override void ShowInformation() => ShowInformationHandler.ShowInformation($"Driving a {GetInformation()}");
         public override string GetInformation() => $"Motorcycle from {Manufacturer}";
     }
 }

@@ -6,16 +6,16 @@ namespace VehicleAssembly.Domain.Vehicles
 {
     public abstract record Vehicle
     {
-        internal Vehicle(Manufacturer manufacturer, IVehicleShowInformationHandler? logger = null)
+        internal Vehicle(Manufacturer manufacturer, IVehicleShowInformationHandler? showInfoHandler = null)
         {
             Manufacturer = manufacturer ?? throw new ArgumentNullException(paramName: nameof(manufacturer));
-            ShowInformationHandler = logger ?? new DebugVehicleInformationHandler();
+            ShowInformationHandler = showInfoHandler ?? new DebugVehicleInformationHandler();
         }
 
         public Manufacturer Manufacturer { get; init; }
         internal IVehicleShowInformationHandler ShowInformationHandler { get; }
 
-        public abstract void ShowInformation();
+        public void ShowInformation() => ShowInformationHandler.ShowInformation($"Driving a {GetInformation()}");
         public abstract string GetInformation();
     }
 }
