@@ -2,7 +2,7 @@
 {
     public class Manufacturer
     {
-        internal string Name { get; init; }
+        public string Name { get; private init; }
 
         private Manufacturer(string name) => Name = name;
 
